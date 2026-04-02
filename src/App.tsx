@@ -113,7 +113,7 @@ const Navbar = () => {
   <img 
     src="/images/logo.png" 
     alt="DNA Architects & Engineers" 
-     className="h-6 w-auto object-contain block self-start"
+     className="h-4 sm:h-5 md:h-6 w-auto object-contain block self-start"
   />
    <span className={`mt-1 block w-full text-left text-[8.7px] font-sans tracking-[0.18em] whitespace-nowrap opacity-70 transition-colors duration-300 ${
   scrolled ? "text-black" : "text-white"

@@ -77,15 +77,15 @@ const SERVICES = [
     description: "Creating spaces that balance form, function, and human experience.",
     icon: <Building2 className="w-6 h-6" />
   },
+   {
+    title: "Interior Design",
+    description: "Crafting meaningful interiors that resonate with the architectural soul.",
+    icon: <Home className="w-6 h-6" />
+  },
   {
     title: "Urban Planning",
     description: "Designing sustainable environments for future generations.",
     icon: <MapPin className="w-6 h-6" />
-  },
-  {
-    title: "Interior Design",
-    description: "Crafting meaningful interiors that resonate with the architectural soul.",
-    icon: <Home className="w-6 h-6" />
   },
   {
     title: "Consulting",
@@ -109,18 +109,18 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex flex-col items-start leading-none w-fit">
+        <a href="#top" className="flex flex-col items-start leading-none w-fit cursor-pointer">
   <img 
     src="/images/logo.png" 
-    alt="DNA Architects & Engineers" 
-     className="h-4 sm:h-5 md:h-6 w-auto object-contain block self-start"
+    className="h-4 sm:h-5 md:h-6 w-auto object-contain block self-start"
   />
-   <span className={`mt-1 block w-full text-left text-[8.7px] font-sans tracking-[0.18em] whitespace-nowrap opacity-70 transition-colors duration-300 ${
-  scrolled ? "text-black" : "text-white"
-}`}>
+
+  <span className={`mt-1 block w-full text-left text-[7px] md:text-[8.7px] font-sans tracking-[0.18em] whitespace-nowrap opacity-70 transition-colors duration-300 ${
+    scrolled ? "text-black" : "text-white"
+  }`}>
     ARCHITECTS, PLANNERS, ENGINEERS
   </span>
-</div>
+</a>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-12 items-center">
@@ -188,7 +188,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative h-screen flex items-center overflow-hidden">
+    <section id="top" className="relative h-screen flex items-center overflow-hidden">
 
       {/* 🔥 배경 이미지 (겹쳐서 크로스페이드) */}
       <div className="absolute inset-0 z-0">
@@ -225,9 +225,12 @@ const Hero = () => {
             시간이 흘러도 변치 않는 가치를 지닌 건축을 제안합니다.
           </p>
 
-          <button className="px-10 py-4 bg-brand-light text-brand-dark text-sm uppercase tracking-widest hover:bg-brand-accent hover:text-brand-light transition-all">
-            View Projects
-          </button>
+          <a 
+  href="#projects"
+  className="inline-block px-10 py-4 bg-brand-light text-brand-dark text-sm uppercase tracking-widest hover:bg-brand-accent hover:text-brand-light transition-all"
+>
+  View Projects
+</a>
         </motion.div>
       </div>
 

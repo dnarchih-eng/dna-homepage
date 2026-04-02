@@ -212,7 +212,7 @@ const Hero = () => {
           transition={{ duration: 1 }}
         >
           <span className="text-sm uppercase tracking-[0.5em] mb-4 block opacity-80">
-            Established 2007
+            Established 2006
           </span>
 
           <h1 className="text-6xl md:text-8xl font-serif leading-tight mb-8">
@@ -373,7 +373,7 @@ const AboutSection = () => {
             </h2>
             <div className="space-y-6 text-lg text-brand-dark/70 leading-relaxed font-light">
               <p>
-                (주)디앤에이건축사사무소는 2007년 설립 이후, 건축의 공공성과 예술성을 조화시키며 
+                (주)디앤에이건축사사무소는 2006년 설립 이후, 건축의 공공성과 예술성을 조화시키며 
                 도시의 새로운 풍경을 만들어왔습니다. 우리는 단순히 건물을 짓는 것을 넘어, 
                 그 속에서 살아가는 사람들의 삶과 문화를 담아내는 그릇을 디자인합니다.
               </p>
@@ -386,11 +386,11 @@ const AboutSection = () => {
 
             <div className="grid grid-cols-2 gap-12 mt-16">
               <div>
-                <span className="text-4xl font-serif block mb-2">15+</span>
+                <span className="text-4xl font-serif block mb-2">20+</span>
                 <span className="text-xs uppercase tracking-widest opacity-60">Years of Excellence</span>
               </div>
               <div>
-                <span className="text-4xl font-serif block mb-2">200+</span>
+                <span className="text-4xl font-serif block mb-2">300+</span>
                 <span className="text-xs uppercase tracking-widest opacity-60">Projects Completed</span>
               </div>
             </div>
@@ -523,8 +523,8 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
           <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-serif font-semibold tracking-widest uppercase">D&A</span>
-            <span className="text-[10px] tracking-[0.3em] uppercase opacity-40 font-sans">Architects & Engineers</span>
+            <span className="text-lg md:text-2xl font-serif font-semibold tracking-widest uppercase">D&A</span>
+            <span className="text-[8px] md:text-[10px] tracking-[0.3em] uppercase opacity-40 font-sans">Architects & Engineers</span>
           </div>
           
           <div className="flex space-x-12 text-[10px] uppercase tracking-[0.2em] opacity-60">

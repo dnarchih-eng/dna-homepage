@@ -109,10 +109,18 @@ const Navbar = () => {
   return (
     <nav className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-8'}`}>
       <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-        <div className="flex flex-col">
-          <span className="text-2xl font-serif font-semibold tracking-widest uppercase">DNA</span>
-          <span className="text-[10px] tracking-[0.3em] uppercase opacity-60 -mt-1 font-sans">Architects & Engineers</span>
-        </div>
+        <div className="flex flex-col items-start leading-none w-fit">
+  <img 
+    src="/images/logo.png" 
+    alt="DNA Architects & Engineers" 
+     className="h-6 w-auto object-contain block self-start"
+  />
+   <span className={`mt-1 block w-full text-left text-[8.7px] font-sans tracking-[0.18em] whitespace-nowrap opacity-70 transition-colors duration-300 ${
+  scrolled ? "text-black" : "text-white"
+}`}>
+    ARCHITECTS, PLANNERS, ENGINEERS
+  </span>
+</div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex space-x-12 items-center">
@@ -204,7 +212,7 @@ const Hero = () => {
           transition={{ duration: 1 }}
         >
           <span className="text-sm uppercase tracking-[0.5em] mb-4 block opacity-80">
-            Established 2009
+            Established 2007
           </span>
 
           <h1 className="text-6xl md:text-8xl font-serif leading-tight mb-8">
@@ -242,24 +250,57 @@ const Hero = () => {
 };
 
 const ProjectsGrid = () => {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const categories = [
+    "All",
+    "F&B",
+    "Retail",
+    "Public",
+    "Office",
+    "Industrial",
+    "Housing",
+    "Etc",
+  ];
+
+  const primaryCategories = categories.filter((category) => category !== "All" && category !== "Etc");
+
+  const filteredProjects = PROJECTS.filter((project) => {
+    if (selectedCategory === "All") return true;
+    if (selectedCategory === "Etc") {
+      return !primaryCategories.includes(project.category);
+    }
+    return project.category === selectedCategory;
+  });
+
   return (
     <section id="projects" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
           <div>
             <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Our Portfolio</span>
             <h2 className="text-5xl font-serif">Featured Works</h2>
           </div>
-          <div className="mt-8 md:mt-0 flex space-x-8 text-sm uppercase tracking-widest opacity-60">
-            <button className="hover:text-brand-dark transition-colors border-b border-brand-dark">All</button>
-            <button className="hover:text-brand-dark transition-colors">Residential</button>
-            <button className="hover:text-brand-dark transition-colors">Commercial</button>
-            <button className="hover:text-brand-dark transition-colors">Public</button>
+
+          <div className="mt-0 flex flex-wrap gap-x-8 gap-y-3 text-sm uppercase tracking-widest opacity-60">
+            {categories.map((category) => {
+              const isActive = selectedCategory === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`transition-colors ${isActive ? "text-brand-dark border-b border-brand-dark" : "hover:text-brand-dark"}`}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-          {PROJECTS.map((project, idx) => (
+          {filteredProjects.map((project, idx) => (
             <motion.div 
               key={project.id}
               initial={{ opacity: 0, y: 30 }}
@@ -314,7 +355,7 @@ const AboutSection = () => {
               className="aspect-square relative z-10"
             >
               <img 
-                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=2069" 
+                src="/images/about-1.png" 
                 alt="Office Interior" 
                 className="w-full h-full object-cover"
                 referrerPolicy="no-referrer"
@@ -325,14 +366,14 @@ const AboutSection = () => {
           </div>
 
           <div>
-            <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">About DNA</span>
+            <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">About D&A</span>
             <h2 className="text-5xl font-serif mb-8 leading-tight">
               Architecture as a <br />
               <span className="italic">Dialogue with Time</span>
             </h2>
             <div className="space-y-6 text-lg text-brand-dark/70 leading-relaxed font-light">
               <p>
-                (주)디앤에이건축사사무소는 2009년 설립 이후, 건축의 공공성과 예술성을 조화시키며 
+                (주)디앤에이건축사사무소는 2007년 설립 이후, 건축의 공공성과 예술성을 조화시키며 
                 도시의 새로운 풍경을 만들어왔습니다. 우리는 단순히 건물을 짓는 것을 넘어, 
                 그 속에서 살아가는 사람들의 삶과 문화를 담아내는 그릇을 디자인합니다.
               </p>
@@ -410,7 +451,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Address</h4>
-                  <p className="text-lg font-light">서울특별시 강남구 테헤란로 123, DNA 빌딩 5층</p>
+                  <p className="text-lg font-light">서울특별시 서초구 잠원동 19-1, 경아빌딩 5층</p>
                 </div>
               </div>
               
@@ -420,7 +461,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Phone</h4>
-                  <p className="text-lg font-light">+82 (0)2 1234 5678</p>
+                  <p className="text-lg font-light">+82 (02) 514 6959</p>
                 </div>
               </div>
 
@@ -430,7 +471,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Email</h4>
-                  <p className="text-lg font-light">contact@dnarchi.com</p>
+                  <p className="text-lg font-light">dnarchi@hanmail.net</p>
                 </div>
               </div>
             </div>
@@ -482,7 +523,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
           <div className="flex flex-col items-center md:items-start">
-            <span className="text-2xl font-serif font-semibold tracking-widest uppercase">DNA</span>
+            <span className="text-2xl font-serif font-semibold tracking-widest uppercase">D&A</span>
             <span className="text-[10px] tracking-[0.3em] uppercase opacity-40 font-sans">Architects & Engineers</span>
           </div>
           
@@ -493,7 +534,7 @@ const Footer = () => {
           </div>
 
           <div className="text-[10px] uppercase tracking-[0.2em] opacity-40">
-            © 2026 DNA Architects & Engineers. All rights reserved.
+            © 2026 D&A Architects & Engineers. All rights reserved.
           </div>
         </div>
       </div>

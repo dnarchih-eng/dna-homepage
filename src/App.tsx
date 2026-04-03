@@ -28,46 +28,186 @@ interface Project {
 // --- Mock Data ---
 const PROJECTS: Project[] = [
   {
-    id: 1,
-    title: "Urban Harmony Tower",
-    category: "Commercial",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070",
-    year: "2023"
+    id: 26,
+    title: "Hwasun building",
+    category: "Etc",
+    image: "/works/etc-7.jpg",
+    year: "2025"
   },
   {
-    id: 2,
-    title: "The Minimalist Villa",
-    category: "Residential",
-    image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2070",
-    year: "2022"
+    id: 25,
+    title: "Hongcheon building",
+    category: "Etc",
+    image: "/works/etc-6.jpg",
+    year: "2020"
   },
   {
-    id: 3,
-    title: "Cultural Arts Center",
+    id: 24,
+    title: "Chuncheon Office",
     category: "Public",
-    image: "https://images.unsplash.com/photo-1503387762-592dee58292b?auto=format&fit=crop&q=80&w=2070",
-    year: "2024"
+    image: "/works/pub-6.jpg",
+    year: "2020"
   },
   {
-    id: 4,
-    title: "Eco-Friendly Office Park",
+    id: 23,
+    title: "World Taekwondo Federation",
+    category: "Public",
+    image: "/works/pub-5.jpg",
+    year: "2025"
+  },
+  {
+    id: 22,
+    title: "World Taekwondo Federation",
+    category: "Public",
+    image: "/works/pub-4.jpg",
+    year: "2025"
+  },
+  {
+    id: 21,
+    title: "Housing Gallery",
+    category: "Etc",
+    image: "/works/etc-5.jpg",
+    year: "2019"
+  },
+  {
+    id: 20,
+    title: "Induk University",
+    category: "Etc",
+    image: "/works/etc-4.jpg",
+    year: "2019"
+  },
+  {
+    id: 19,
+    title: "UNIQLO",
+    category: "Retail",
+    image: "/works/uq-2.jpg",
+    year: "2019"
+  },
+  {
+    id: 18,
+    title: "Officetel",
     category: "Office",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069",
-    year: "2023"
+    image: "/works/officetel-2.jpg",
+    year: "2019"
   },
   {
-    id: 5,
-    title: "Luxury Waterfront Suites",
-    category: "Hospitality",
-    image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=2070",
+    id: 17,
+    title: "Yangpyeong-building",
+    category: "Etc",
+    image: "/works/etc-2.jpg",
+    year: "2019"
+  },
+  {
+    id: 16,
+    title: "Andong-building",
+    category: "Etc",
+    image: "/works/etc-1.jpg",
+    year: "2019"
+  },
+  {
+    id: 15,
+    title: "Sisa Language School",
+    category: "Office",
+    image: "/works/office-3.jpg",
+    year: "2019"
+  },
+  {
+    id: 14,
+    title: "Forest Education Center",
+    category: "Public",
+    image: "/works/pub-3.jpg",
+    year: "2025"
+  },
+  {
+    id: 13,
+    title: "BURGER KING",
+    category: "F&B",
+    image: "/works/burgerking-1.jpg",
+    year: "2025"
+  },
+  {
+    id: 12,
+    title: "Bio-Convergence Center",
+    category: "Public",
+    image: "/works/pub-2.jpg",
+    year: "2021"
+  },
+  {
+    id: 11,
+    title: "Vavas Mall",
+    category: "Retail",
+    image: "/works/retail-1.jpg",
+    year: "2021"
+  },
+  {
+    id: 10,
+    title: "Eastern Forest Service",
+    category: "Public",
+    image: "/works/pub-1.jpg",
+    year: "2021"
+  },
+  {
+    id: 8,
+    title: "Guui-Officetel",
+    category: "Office",
+    image: "/works/officetel-1.jpg",
+    year: "2021"
+  },
+  {
+    id: 7,
+    title: "Gangseo-Office",
+    category: "Office",
+    image: "/works/office-2.jpg",
     year: "2021"
   },
   {
     id: 6,
-    title: "Modern Library Extension",
-    category: "Education",
-    image: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&q=80&w=2070",
-    year: "2024"
+    title: "Galhyeon-Office",
+    category: "Office",
+    image: "/works/office-1.jpg",
+    year: "2023"
+  },
+  {
+    id: 4,
+    title: "MUJI",
+    category: "Retail",
+    image: "/works/muji-1.jpg",
+    year: "2023"
+  },
+  {
+    id: 1,
+    title: "McDonald's",
+    category: "F&B",
+    image: "/works/mc-1.jpg",
+    year: "2023"
+  },
+  {
+    id: 2,
+    title: "UNIQLO",
+    category: "Retail",
+    image: "/works/uq-main.jpg",
+    year: "2022"
+  },
+  {
+    id: 3,
+    title: "Office of Education Support",
+    category: "Public",
+    image: "/works/pub-main.jpg",
+    year: "2025"
+  },
+  {
+    id: 9,
+    title: "McDonald's",
+    category: "F&B",
+    image: "/works/mc-2.jpg",
+    year: "2023"
+  },
+  {
+    id: 5,
+    title: "PaulBassett",
+    category: "F&B",
+    image: "/works/paulbassett-1.jpg",
+    year: "2021"
   }
 ];
 
@@ -217,7 +357,7 @@ const Hero = () => {
 
           <h1 className="text-6xl md:text-8xl font-serif leading-tight mb-8">
             Designing <br />
-            <span className="italic">Future Heritage</span>
+            <span className="italic">& Aesthetics</span>
           </h1>
 
           <p className="max-w-xl text-lg opacity-80 mb-12 font-light leading-relaxed">

@@ -64,7 +64,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 7, title: "Gangseo-Office", category: "Office", image: "/works/office-2.jpg", year: "2021" },
   { id: 6, title: "Galhyeon-Office", category: "Office", image: "/works/office-1.jpg", year: "2023" },
   { id: 4, title: "MUJI", category: "Retail", image: "/works/muji-1.jpg", year: "2023" },
-  { id: 1, title: "McDonald's", category: "F&B", image: "/works/mc-1.jpg", year: "2023" },
+  { id: 1, title: "McDonald's", category: "F&B", image: "/works/mc-1.jpg", year: "2025" },
   { id: 2, title: "UNIQLO", category: "Retail", image: "/works/uq-main.jpg", year: "2022" },
   { id: 3, title: "Office of Education Support", category: "Public", image: "/works/pub-main.jpg", year: "2025" },
   { id: 9, title: "McDonald's", category: "F&B", image: "/works/mc-2.jpg", year: "2023" },
@@ -286,18 +286,15 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
   useEffect(() => {
     if (!project) return;
 
-    const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
         onClose();
       }
     };
 
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [project, onClose]);
@@ -369,7 +366,7 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                   <div className="mb-6 text-xs uppercase tracking-[0.24em] text-brand-dark/45">
                     {project.images.length} related images
                   </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 items-start">
                     {project.images.map((image, index) => (
                       <button
                         key={image.id}
@@ -377,14 +374,14 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                         onClick={() => onImageClick(index)}
                         className="group block overflow-hidden rounded-2xl bg-[#f5f5f3] text-left"
                       >
-                        <div className="aspect-[4/5]">
+                        <div className="flex items-center justify-center px-3 py-3 md:px-4 md:py-4">
                           <img
                             src={image.src}
                             alt={image.alt}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                            className="w-full max-h-[48vh] object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                         </div>
-                        <div className="px-4 py-3 text-[11px] uppercase tracking-[0.22em] text-brand-dark/55">
+                        <div className="px-4 py-3 text-[11px] uppercase tracking-[0.22em] text-brand-dark/55 border-t border-brand-dark/8">
                           Image {index + 1}
                         </div>
                       </button>
@@ -412,18 +409,15 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
   useEffect(() => {
     if (!project || imageIndex === null) return;
 
-    const previousOverflow = document.body.style.overflow;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
       if (event.key === 'ArrowLeft') onPrev();
       if (event.key === 'ArrowRight') onNext();
     };
 
-    document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [project, imageIndex, onClose, onPrev, onNext]);
@@ -498,6 +492,17 @@ const ProjectsGrid = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedProjectId, setSelectedProjectId] = useState<number | null>(null);
   const [lightboxImageIndex, setLightboxImageIndex] = useState<number | null>(null);
+
+  useEffect(() => {
+    const hasOpenOverlay = selectedProjectId !== null || lightboxImageIndex !== null;
+    const previousOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = hasOpenOverlay ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedProjectId, lightboxImageIndex]);
 
   const categories = ['All', 'F&B', 'Retail', 'Public', 'Office', 'Industrial', 'Housing', 'Etc'];
   const primaryCategories = categories.filter((category) => category !== 'All' && category !== 'Etc');

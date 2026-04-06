@@ -46,8 +46,8 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 26, title: "Hwasun building", category: "Etc", image: "/works/etc-7.jpg", year: "2025" },
   { id: 25, title: "Hongcheon building", category: "Etc", image: "/works/etc-6.jpg", year: "2020" },
   { id: 24, title: "Chuncheon Office", category: "Public", image: "/works/pub-6.jpg", year: "2020" },
-  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025" },
   { id: 22, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-4.jpg", year: "2025" },
+  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025" },
   { id: 21, title: "Housing Gallery", category: "Etc", image: "/works/etc-5.jpg", year: "2019" },
   { id: 20, title: "Induk University", category: "Etc", image: "/works/etc-4.jpg", year: "2019" },
   { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2019" },
@@ -92,6 +92,36 @@ const SERVICES = [
     description: "Expert guidance from concept to completion for complex projects.",
     icon: <Users className="w-6 h-6" />,
   },
+];
+
+
+
+const PARTNER_LOGOS = [
+  { id: 'partner-01', name: 'Partner 01', src: '/partners/partner-01.png', href: '#' },
+  { id: 'partner-02', name: 'Partner 02', src: '/partners/partner-02.png', href: '#' },
+  { id: 'partner-03', name: 'Partner 03', src: '/partners/partner-03.png', href: '#' },
+  { id: 'partner-04', name: 'Partner 04', src: '/partners/partner-04.png', href: '#' },
+  { id: 'partner-05', name: 'Partner 05', src: '/partners/partner-05.png', href: '#' },
+  { id: 'partner-06', name: 'Partner 06', src: '/partners/partner-06.png', href: '#' },
+  { id: 'partner-07', name: 'Partner 07', src: '/partners/partner-07.png', href: '#' },
+  { id: 'partner-08', name: 'Partner 08', src: '/partners/partner-08.png', href: '#' },
+  { id: 'partner-09', name: 'Partner 09', src: '/partners/partner-09.png', href: '#' },
+  { id: 'partner-10', name: 'Partner 10', src: '/partners/partner-10.png', href: '#' },
+  { id: 'partner-11', name: 'Partner 11', src: '/partners/partner-11.png', href: '#' },
+  { id: 'partner-12', name: 'Partner 12', src: '/partners/partner-12.png', href: '#' },
+  { id: 'partner-13', name: 'Partner 13', src: '/partners/partner-13.png', href: '#' },
+  { id: 'partner-14', name: 'Partner 14', src: '/partners/partner-14.png', href: '#' },
+  { id: 'partner-15', name: 'Partner 15', src: '/partners/partner-15.png', href: '#' },
+  { id: 'partner-16', name: 'Partner 16', src: '/partners/partner-16.png', href: '#' },
+  { id: 'partner-17', name: 'Partner 17', src: '/partners/partner-17.png', href: '#' },
+  { id: 'partner-18', name: 'Partner 18', src: '/partners/partner-18.png', href: '#' },
+  { id: 'partner-19', name: 'Partner 19', src: '/partners/partner-19.png', href: '#' },
+  { id: 'partner-20', name: 'Partner 20', src: '/partners/partner-20.png', href: '#' },
+  { id: 'partner-21', name: 'Partner 21', src: '/partners/partner-21.png', href: '#' },
+  { id: 'partner-22', name: 'Partner 22', src: '/partners/partner-22.png', href: '#' },
+  { id: 'partner-23', name: 'Partner 23', src: '/partners/partner-23.png', href: '#' },
+  { id: 'partner-24', name: 'Partner 24', src: '/partners/partner-24.png', href: '#' },
+  { id: 'partner-25', name: 'Partner 25', src: '/partners/partner-25.png', href: '#' },
 ];
 
 const PROJECTS: Project[] = (() => {
@@ -686,6 +716,92 @@ const AboutSection = () => {
   );
 };
 
+
+
+interface PartnerMarqueeProps {
+  logos: typeof PARTNER_LOGOS;
+  reverse?: boolean;
+  durationClass?: string;
+}
+
+const PartnerMarquee = ({
+  logos,
+  reverse = false,
+  durationClass = 'animate-[partner-marquee_52s_linear_infinite]',
+}: PartnerMarqueeProps) => {
+  const repeatedLogos = [...logos, ...logos];
+
+  return (
+    <div className="relative overflow-hidden py-3">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 md:w-24 bg-gradient-to-r from-brand-light to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 md:w-24 bg-gradient-to-l from-brand-light to-transparent" />
+
+      <div
+        className={`flex min-w-max items-center gap-10 md:gap-16 ${durationClass} ${reverse ? 'reverse' : ''} hover:[animation-play-state:paused]`}
+      >
+        {repeatedLogos.map((logo, index) => (
+          <div
+  key={`${logo.id}-${index}`}
+  className="shrink-0 flex items-center justify-center"
+  aria-label={logo.name}
+>
+  <img
+    src={logo.src}
+    alt={logo.name}
+    loading="lazy"
+    className="h-8 md:h-10 w-auto object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
+  />
+</div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const PartnersSection = () => {
+  const midpoint = Math.ceil(PARTNER_LOGOS.length / 2);
+  const firstRow = PARTNER_LOGOS.slice(0, midpoint);
+  const secondRow = PARTNER_LOGOS.slice(midpoint);
+
+  return (
+    <section className="py-20 md:py-24 bg-brand-light overflow-hidden border-t border-brand-dark/5">
+      <style>{`
+        @keyframes partner-marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+        .reverse {
+          animation-direction: reverse;
+        }
+      `}</style>
+
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="mb-12 md:mb-16">
+          <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Trusted Partners</span>
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-8 items-end">
+            <h2 className="text-4xl md:text-5xl font-serif leading-tight">
+              Brands and institutions <br />
+              <span className="italic">we move forward with</span>
+            </h2>
+            <p className="text-base md:text-lg text-brand-dark/60 leading-relaxed font-light max-w-2xl lg:justify-self-end">
+              디앤에이는 다양한 브랜드와 공공 기관, 기업 파트너와 함께 공간의 가치를 설계해왔습니다.
+            </p>
+          </div>
+        </div>
+
+        <div className="space-y-3 md:space-y-4">
+          <PartnerMarquee logos={firstRow} durationClass="animate-[partner-marquee_56s_linear_infinite]" />
+          <PartnerMarquee
+            logos={secondRow.length > 0 ? secondRow : firstRow}
+            reverse
+            durationClass="animate-[partner-marquee_62s_linear_infinite]"
+          />
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const ServicesSection = () => {
   return (
     <section id="services" className="py-32 bg-brand-dark text-brand-light">
@@ -853,6 +969,7 @@ export default function App() {
       <Navbar />
       <Hero />
       <AboutSection />
+      <PartnersSection />
       <ProjectsGrid />
       <ServicesSection />
       <ContactSection />

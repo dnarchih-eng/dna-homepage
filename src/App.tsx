@@ -834,16 +834,17 @@ const ServicesSection = () => {
   );
 };
 
+
 const ContactSection = () => {
   return (
     <section id="contact" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start">
           <div>
             <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Get in Touch</span>
-            <h2 className="text-5xl font-serif mb-12">
-              Let's Build <br /> Something Great
-            </h2>
+<h2 className="text-5xl font-serif mb-12">
+  Let's Build <br /> Something Great
+</h2>
 
             <div className="space-y-10">
               <div className="flex items-start space-x-6">
@@ -876,7 +877,7 @@ const ContactSection = () => {
                 </div>
               </div>
             </div>
-
+          
             <div className="mt-16 flex space-x-6">
               <a href="#" className="p-4 border border-brand-dark/10 hover:border-brand-dark transition-colors">
                 <Instagram className="w-5 h-5" />
@@ -887,48 +888,31 @@ const ContactSection = () => {
             </div>
           </div>
 
-          <div className="bg-brand-light p-12">
-            <form className="space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest opacity-60">Name</label>
-                  <input
-                    type="text"
-                    className="w-full bg-transparent border-b border-brand-dark/20 py-3 focus:outline-none focus:border-brand-accent transition-colors"
-                  />
+          <div className="bg-brand-light p-4 md:p-6 rounded-[28px] border border-brand-dark/8 shadow-[0_24px_80px_rgba(0,0,0,0.06)]">
+            <div className="overflow-hidden rounded-[20px] bg-brand-dark">
+              <img
+                src="/images/contact-location-map.png"
+                alt="D&A office location map"
+                className="w-full h-auto object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div className="px-2 md:px-1 pt-5 md:pt-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.24em] text-brand-dark/45 mb-2">Office Map</p>
+                  <p className="text-lg font-light text-brand-dark">Sinsa Station Exit 4 · Kyungah Building 5F</p>
                 </div>
-                <div className="space-y-2">
-                  <label className="text-[10px] uppercase tracking-widest opacity-60">Email</label>
-                  <input
-                    type="email"
-                    className="w-full bg-transparent border-b border-brand-dark/20 py-3 focus:outline-none focus:border-brand-accent transition-colors"
-                  />
-                </div>
+                <span className="text-sm uppercase tracking-[0.2em] text-brand-accent">3 min walk</span>
               </div>
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest opacity-60">Subject</label>
-                <input
-                  type="text"
-                  className="w-full bg-transparent border-b border-brand-dark/20 py-3 focus:outline-none focus:border-brand-accent transition-colors"
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] uppercase tracking-widest opacity-60">Message</label>
-                <textarea
-                  rows={4}
-                  className="w-full bg-transparent border-b border-brand-dark/20 py-3 focus:outline-none focus:border-brand-accent transition-colors resize-none"
-                />
-              </div>
-              <button className="w-full py-5 bg-brand-dark text-brand-light text-xs uppercase tracking-[0.3em] hover:bg-brand-accent transition-colors">
-                Send Message
-              </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
+
 
 const Footer = () => {
   return (

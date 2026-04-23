@@ -12,6 +12,8 @@ import {
   Building2,
   Home,
   Users,
+  Network,
+  BriefcaseBusiness,
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
@@ -38,6 +40,19 @@ interface Project {
   year: string;
   coverImage: string;
   images: ProjectImage[];
+}
+
+interface TeamMember {
+  name: string;
+  role: string;
+  department: string;
+  focus: string;
+}
+
+interface OrganizationGroup {
+  title: string;
+  description: string;
+  members: string[];
 }
 
 // --- Source Data ---
@@ -91,6 +106,56 @@ const SERVICES = [
     title: "Consulting",
     description: "Expert guidance from concept to completion for complex projects.",
     icon: <Users className="w-6 h-6" />,
+  },
+];
+
+const ORGANIZATION_GROUPS: OrganizationGroup[] = [
+  {
+    title: "Principal Office",
+    description: "Direction, client communication, and design leadership.",
+    members: ["CEO / Principal Architect", "Design Director"],
+  },
+  {
+    title: "Architecture Studio",
+    description: "Planning, schematic design, construction documents, and site coordination.",
+    members: ["Project Architects", "Designers", "BIM / CAD Specialists"],
+  },
+  {
+    title: "Engineering Studio",
+    description: "Structural, mechanical, electrical, and technical coordination.",
+    members: ["Structural Engineers", "MEP Engineers", "Technical Review"],
+  },
+  {
+    title: "Management",
+    description: "Permits, administration, scheduling, and project support.",
+    members: ["Project Management", "Administration", "Client Support"],
+  },
+];
+
+const TEAM_MEMBERS: TeamMember[] = [
+  {
+    name: "D&A Leadership",
+    role: "Principal Architect",
+    department: "Principal Office",
+    focus: "Architectural direction, client strategy, and design quality.",
+  },
+  {
+    name: "Design Studio",
+    role: "Project Architects",
+    department: "Architecture Studio",
+    focus: "Planning, concept design, documentation, and construction coordination.",
+  },
+  {
+    name: "Engineering Team",
+    role: "Technical Partners",
+    department: "Engineering Studio",
+    focus: "Structural and MEP coordination for buildable, durable spaces.",
+  },
+  {
+    name: "Project Support",
+    role: "Management Team",
+    department: "Management",
+    focus: "Schedules, permits, administration, and communication support.",
   },
 ];
 
@@ -164,7 +229,11 @@ const PROJECTS: Project[] = (() => {
 })();
 
 // --- Components ---
-const Navbar = () => {
+interface NavbarProps {
+  onFirmProfileOpen: () => void;
+}
+
+const Navbar = ({ onFirmProfileOpen }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -203,8 +272,12 @@ const Navbar = () => {
               {item}
             </a>
           ))}
-          <button className="px-6 py-2 border border-brand-dark text-xs uppercase tracking-widest hover:bg-brand-dark hover:text-brand-light transition-all">
-            Inquiry
+          <button
+            type="button"
+            onClick={onFirmProfileOpen}
+            className="px-6 py-2 border border-brand-dark text-xs uppercase tracking-widest hover:bg-brand-dark hover:text-brand-light transition-all"
+          >
+            firm profile
           </button>
         </div>
 
@@ -231,10 +304,222 @@ const Navbar = () => {
                 {item}
               </a>
             ))}
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false);
+                onFirmProfileOpen();
+              }}
+              className="text-left text-lg font-serif italic hover:text-brand-accent"
+            >
+              firm profile
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
     </nav>
+  );
+};
+
+interface FirmProfileModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const FirmProfileModal = ({ isOpen, onClose }: FirmProfileModalProps) => {
+  const [activeTab, setActiveTab] = useState<'organization' | 'people'>('organization');
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  const tabs = [
+    { id: 'organization' as const, label: 'Organization', icon: <Network className="w-4 h-4" /> },
+    { id: 'people' as const, label: 'People', icon: <Users className="w-4 h-4" /> },
+  ];
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        key="firm-profile-modal"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="fixed inset-0 z-[70] bg-black/70 backdrop-blur-sm p-4 md:p-8"
+        onClick={onClose}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 24, scale: 0.98 }}
+          transition={{ duration: 0.25 }}
+          className="relative mx-auto h-full max-w-6xl overflow-hidden rounded-2xl bg-white shadow-2xl"
+          onClick={(event) => event.stopPropagation()}
+        >
+          <button
+            type="button"
+            aria-label="Close firm profile"
+            onClick={onClose}
+            className="absolute top-4 right-4 z-20 rounded-full bg-white/90 p-2 text-brand-dark shadow-sm hover:bg-white transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+          <div className="h-full overflow-y-auto">
+            <div className="bg-brand-dark px-6 md:px-10 pt-10 pb-8 text-brand-light">
+              <span className="text-brand-accent text-xs uppercase tracking-[0.28em] block mb-4">
+                Firm Profile
+              </span>
+              <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-8 lg:gap-16 items-end">
+                <div>
+                  <h2 className="balanced-heading text-4xl md:text-6xl font-serif leading-tight">
+                    D&amp;A Architects <br />
+                    <span className="italic">&amp; Engineers</span>
+                  </h2>
+                </div>
+                <p className="readable-copy text-sm md:text-base leading-relaxed text-brand-light/65 font-light max-w-2xl">
+                  A compact view of the studio structure, project roles, and the people who support
+                  architectural design from concept through completion.
+                </p>
+              </div>
+            </div>
+
+            <div className="border-b border-brand-dark/10 px-6 md:px-10 py-4">
+              <div className="flex flex-wrap gap-2">
+                {tabs.map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      onClick={() => setActiveTab(tab.id)}
+                      className={`inline-flex items-center gap-2 px-4 py-2 text-xs uppercase tracking-[0.2em] transition-colors ${
+                        isActive
+                          ? 'bg-brand-dark text-brand-light'
+                          : 'border border-brand-dark/10 text-brand-dark/60 hover:border-brand-dark hover:text-brand-dark'
+                      }`}
+                    >
+                      {tab.icon}
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="p-6 md:p-10">
+              {activeTab === 'organization' ? (
+                <div>
+                  <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                    <div>
+                      <span className="text-brand-accent text-xs uppercase tracking-[0.24em] block mb-3">
+                        Studio Structure
+                      </span>
+                      <h3 className="text-3xl md:text-5xl font-serif">Organization</h3>
+                    </div>
+                    <div className="text-sm uppercase tracking-[0.2em] text-brand-dark/45">4 divisions</div>
+                  </div>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12">
+                    <div className="border border-brand-dark/10 bg-brand-light p-6 md:p-8">
+                      <div className="mb-6 flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark text-brand-light">
+                          <BriefcaseBusiness className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-xs uppercase tracking-[0.22em] text-brand-dark/45">Leadership</p>
+                          <h4 className="text-2xl font-serif">Principal Office</h4>
+                        </div>
+                      </div>
+                      <div className="space-y-4">
+                        {ORGANIZATION_GROUPS.slice(1).map((group) => (
+                          <div key={group.title} className="border-l border-brand-accent/40 pl-5">
+                            <h5 className="font-serif text-xl">{group.title}</h5>
+                            <p className="readable-copy mt-1 text-sm leading-relaxed text-brand-dark/55">{group.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {ORGANIZATION_GROUPS.map((group) => (
+                        <div key={group.title} className="border border-brand-dark/10 p-6 hover:border-brand-accent transition-colors">
+                          <h4 className="text-2xl font-serif mb-3">{group.title}</h4>
+                          <p className="readable-copy text-sm leading-relaxed text-brand-dark/55 mb-6">{group.description}</p>
+                          <div className="space-y-2">
+                            {group.members.map((member) => (
+                              <div
+                                key={member}
+                                className="text-xs uppercase tracking-[0.18em] text-brand-dark/60 border-t border-brand-dark/8 pt-2"
+                              >
+                                {member}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+                    <div>
+                      <span className="text-brand-accent text-xs uppercase tracking-[0.24em] block mb-3">
+                        Team Introduction
+                      </span>
+                      <h3 className="text-3xl md:text-5xl font-serif">People</h3>
+                    </div>
+                    <div className="text-sm uppercase tracking-[0.2em] text-brand-dark/45">Core roles</div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    {TEAM_MEMBERS.map((member) => (
+                      <div
+                        key={`${member.name}-${member.role}`}
+                        className="group border border-brand-dark/10 bg-white p-6 md:p-8 transition-colors hover:border-brand-accent"
+                      >
+                        <div className="mb-8 flex items-start justify-between gap-4">
+                          <div>
+                            <p className="text-xs uppercase tracking-[0.22em] text-brand-accent mb-3">
+                              {member.department}
+                            </p>
+                            <h4 className="text-3xl font-serif leading-tight">{member.name}</h4>
+                          </div>
+                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-accent group-hover:bg-brand-dark group-hover:text-brand-light transition-colors">
+                            <Users className="w-5 h-5" />
+                          </div>
+                        </div>
+                        <p className="text-sm uppercase tracking-[0.2em] text-brand-dark/45 mb-4">{member.role}</p>
+                        <p className="readable-copy text-base leading-relaxed text-brand-dark/62 font-light">{member.focus}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 };
 
@@ -270,12 +555,12 @@ const Hero = () => {
         <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1 }}>
           <span className="text-sm uppercase tracking-[0.5em] mb-4 block opacity-80">Established 2006</span>
 
-          <h1 className="text-6xl md:text-8xl font-serif leading-tight mb-8">
+          <h1 className="balanced-heading text-6xl md:text-8xl font-serif leading-tight mb-8">
             Designing <br />
             <span className="italic">&amp; Aesthetics</span>
           </h1>
 
-          <p className="max-w-xl text-lg opacity-80 mb-12 font-light leading-relaxed">
+          <p className="readable-copy max-w-xl text-lg opacity-80 mb-12 font-light leading-relaxed">
             (주)디앤에이건축사사무소는 공간의 본질을 탐구하며, 시간이 흘러도 변치 않는 가치를 지닌 건축을
             제안합니다.
           </p>
@@ -574,10 +859,11 @@ const ProjectsGrid = () => {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
             <div>
               <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Our Portfolio</span>
-              <h2 className="text-5xl font-serif">Featured Works</h2>
+              <h2 className="balanced-heading text-5xl font-serif">Featured Works</h2>
             </div>
 
-            <div className="mt-0 flex flex-wrap gap-x-8 gap-y-3 text-sm uppercase tracking-widest opacity-60">
+            <div className="-mx-6 overflow-x-auto px-6 pb-2 md:mx-0 md:overflow-visible md:px-0 md:pb-0">
+              <div className="flex w-max gap-3 text-xs uppercase tracking-widest md:w-auto md:flex-wrap md:justify-end md:gap-x-8 md:gap-y-3 md:text-sm">
               {categories.map((category) => {
                 const isActive = selectedCategory === category;
                 return (
@@ -585,14 +871,17 @@ const ProjectsGrid = () => {
                     key={category}
                     type="button"
                     onClick={() => setSelectedCategory(category)}
-                    className={`transition-colors ${
-                      isActive ? 'text-brand-dark border-b border-brand-dark' : 'hover:text-brand-dark'
+                    className={`min-h-11 shrink-0 border px-4 py-2 transition-colors md:min-h-0 md:border-0 md:px-0 md:py-0 ${
+                      isActive
+                        ? 'border-brand-dark bg-brand-dark text-brand-light md:bg-transparent md:text-brand-dark md:border-b'
+                        : 'border-brand-dark/10 text-brand-dark/55 hover:border-brand-dark hover:text-brand-dark md:text-brand-dark/60 md:hover:text-brand-dark'
                     }`}
                   >
                     {category}
                   </button>
                 );
               })}
+              </div>
             </div>
           </div>
 
@@ -630,11 +919,6 @@ const ProjectsGrid = () => {
             ))}
           </div>
 
-          <div className="mt-24 text-center">
-            <button className="px-12 py-4 border border-brand-dark/20 text-sm uppercase tracking-widest hover:border-brand-dark transition-colors">
-              Explore All Projects
-            </button>
-          </div>
         </div>
       </section>
 
@@ -683,11 +967,11 @@ const AboutSection = () => {
 
           <div>
             <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">About D&amp;A</span>
-            <h2 className="text-5xl font-serif mb-8 leading-tight">
+            <h2 className="balanced-heading text-5xl font-serif mb-8 leading-tight">
               Architecture as a <br />
               <span className="italic">Dialogue with Time</span>
             </h2>
-            <div className="space-y-6 text-lg text-brand-dark/70 leading-relaxed font-light">
+            <div className="readable-copy space-y-6 text-lg text-brand-dark/70 leading-relaxed font-light">
               <p>
                 (주)디앤에이건축사사무소는 2006년 설립 이후, 건축의 공공성과 예술성을 조화시키며 도시의 새로운 풍경을
                 만들어왔습니다. 우리는 단순히 건물을 짓는 것을 넘어, 그 속에서 살아가는 사람들의 삶과 문화를 담아내는
@@ -779,11 +1063,11 @@ const PartnersSection = () => {
         <div className="mb-12 md:mb-16">
           <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Trusted Partners</span>
           <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-8 items-end">
-            <h2 className="text-4xl md:text-5xl font-serif leading-tight">
+            <h2 className="balanced-heading text-4xl md:text-5xl font-serif leading-tight">
               Brands and institutions <br />
               <span className="italic">we move forward with</span>
             </h2>
-            <p className="text-base md:text-lg text-brand-dark/60 leading-relaxed font-light max-w-2xl lg:justify-self-end">
+            <p className="readable-copy text-base md:text-lg text-brand-dark/60 leading-relaxed font-light max-w-2xl lg:justify-self-end">
               디앤에이는 다양한 브랜드와 공공 기관, 기업 파트너와 함께 공간의 가치를 설계해왔습니다.
             </p>
           </div>
@@ -808,7 +1092,7 @@ const ServicesSection = () => {
       <div className="max-w-7xl mx-auto px-6">
         <div className="text-center mb-24">
           <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Expertise</span>
-          <h2 className="text-5xl font-serif">Our Services</h2>
+          <h2 className="balanced-heading text-5xl font-serif">Our Services</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
@@ -825,7 +1109,7 @@ const ServicesSection = () => {
                 {service.icon}
               </div>
               <h3 className="text-2xl font-serif mb-4">{service.title}</h3>
-              <p className="text-sm opacity-60 leading-relaxed font-light">{service.description}</p>
+              <p className="readable-copy text-sm opacity-60 leading-relaxed font-light">{service.description}</p>
             </motion.div>
           ))}
         </div>
@@ -842,7 +1126,7 @@ const ContactSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start">
           <div>
             <span className="text-brand-accent text-sm uppercase tracking-widest mb-4 block">Get in Touch</span>
-<h2 className="text-5xl font-serif mb-12">
+<h2 className="balanced-heading text-5xl font-serif mb-12">
   Let's Build <br /> Something Great
 </h2>
 
@@ -853,7 +1137,7 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Address</h4>
-                  <p className="text-lg font-light">서울특별시 서초구 잠원동 19-1, 경아빌딩 5층</p>
+                  <p className="readable-copy text-lg font-light">서울특별시 서초구 잠원동 19-1, 경아빌딩 5층</p>
                 </div>
               </div>
 
@@ -901,7 +1185,7 @@ const ContactSection = () => {
               <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <div>
                   <p className="text-xs uppercase tracking-[0.24em] text-brand-dark/45 mb-2">Office Map</p>
-                  <p className="text-lg font-light text-brand-dark">Sinsa Station Exit 4 · Kyungah Building 5F</p>
+                  <p className="readable-copy text-lg font-light text-brand-dark">Sinsa Station Exit 4 · Kyungah Building 5F</p>
                 </div>
                 <span className="text-sm uppercase tracking-[0.2em] text-brand-accent">3 min walk</span>
               </div>
@@ -948,9 +1232,12 @@ const Footer = () => {
 };
 
 export default function App() {
+  const [isFirmProfileOpen, setIsFirmProfileOpen] = useState(false);
+
   return (
     <div className="min-h-screen selection:bg-brand-accent selection:text-white">
-      <Navbar />
+      <Navbar onFirmProfileOpen={() => setIsFirmProfileOpen(true)} />
+      <FirmProfileModal isOpen={isFirmProfileOpen} onClose={() => setIsFirmProfileOpen(false)} />
       <Hero />
       <AboutSection />
       <PartnersSection />

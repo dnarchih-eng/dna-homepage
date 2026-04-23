@@ -35,3 +35,16 @@
 html {
   scroll-behavior: smooth;
 }
+
+.balanced-heading {
+  text-wrap: balance;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.readable-copy {
+  text-wrap: pretty;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  line-break: strict;
+}

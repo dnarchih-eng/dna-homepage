@@ -56,6 +56,14 @@ interface OrganizationGroup {
   members: string[];
 }
 
+const getThumbnailSrc = (src: string) => {
+  if (!src.startsWith('/works/')) return src;
+
+  return src
+    .replace('/works/', '/works-thumbs/')
+    .replace(/\.(jpe?g|png|webp)$/i, '.jpg');
+};
+
 // --- Source Data ---
 const PROJECT_SOURCES: ProjectSource[] = [
   { id: 27, title: "Seocho-dong Complex", category: "Public", image: "/works/pub-7.jpg", year: "2022" },
@@ -1005,12 +1013,16 @@ const ProjectsGrid = () => {
               >
                 <div className="relative aspect-[4/5] overflow-hidden mb-6">
                   <img
-                    src={project.coverImage}
+                    src={getThumbnailSrc(project.coverImage)}
                     alt={project.title}
                     loading={idx < 3 ? 'eager' : 'lazy'}
                     fetchPriority={idx < 3 ? 'high' : 'auto'}
                     decoding="async"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                    onError={(event) => {
+                      event.currentTarget.onerror = null;
+                      event.currentTarget.src = project.coverImage;
+                    }}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 transition-colors duration-500" />

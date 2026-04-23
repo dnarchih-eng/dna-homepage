@@ -16,6 +16,7 @@ import {
   BriefcaseBusiness,
   ChevronLeft,
   ChevronRight,
+  ArrowUp,
 } from 'lucide-react';
 
 // --- Types ---
@@ -251,6 +252,10 @@ const Navbar = ({ onFirmProfileOpen }: NavbarProps) => {
             src="/images/logo.png"
             alt="DNA Architects & Engineers"
             className="h-4 sm:h-5 md:h-6 w-auto object-contain block self-start"
+            width="260"
+            height="36"
+            loading="eager"
+            decoding="async"
           />
 
           <span
@@ -523,6 +528,95 @@ const FirmProfileModal = ({ isOpen, onClose }: FirmProfileModalProps) => {
   );
 };
 
+interface FloatingNavigationProps {
+  onFirmProfileOpen: () => void;
+}
+
+const FloatingNavigation = ({ onFirmProfileOpen }: FloatingNavigationProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setIsVisible(window.scrollY > 420);
+    handleScroll();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    document.querySelector(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.22 }}
+            className="fixed inset-x-0 bottom-4 z-40 px-4 md:hidden"
+          >
+            <div className="mx-auto grid max-w-[360px] grid-cols-4 overflow-hidden border border-brand-dark/10 bg-white/90 text-[10px] uppercase tracking-[0.16em] text-brand-dark shadow-[0_16px_50px_rgba(0,0,0,0.14)] backdrop-blur-md">
+              <button
+                type="button"
+                onClick={() => scrollToSection('#top')}
+                className="flex min-h-12 flex-col items-center justify-center gap-1 border-r border-brand-dark/10 transition-colors hover:bg-brand-dark hover:text-brand-light"
+              >
+                <ArrowUp className="h-4 w-4" />
+                Top
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('#projects')}
+                className="flex min-h-12 flex-col items-center justify-center gap-1 border-r border-brand-dark/10 transition-colors hover:bg-brand-dark hover:text-brand-light"
+              >
+                <Building2 className="h-4 w-4" />
+                Works
+              </button>
+              <button
+                type="button"
+                onClick={onFirmProfileOpen}
+                className="flex min-h-12 flex-col items-center justify-center gap-1 border-r border-brand-dark/10 transition-colors hover:bg-brand-dark hover:text-brand-light"
+              >
+                <Users className="h-4 w-4" />
+                Profile
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollToSection('#contact')}
+                className="flex min-h-12 flex-col items-center justify-center gap-1 transition-colors hover:bg-brand-dark hover:text-brand-light"
+              >
+                <Mail className="h-4 w-4" />
+                Contact
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {isVisible && (
+          <motion.button
+            type="button"
+            aria-label="Back to top"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 18 }}
+            transition={{ duration: 0.22 }}
+            onClick={() => scrollToSection('#top')}
+            className="fixed bottom-8 right-8 z-40 hidden h-12 w-12 items-center justify-center border border-brand-dark/10 bg-white/90 text-brand-dark shadow-[0_14px_40px_rgba(0,0,0,0.12)] backdrop-blur-md transition-colors hover:bg-brand-dark hover:text-brand-light md:flex"
+          >
+            <ArrowUp className="h-5 w-5" />
+          </motion.button>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
 const Hero = () => {
   const heroImages = ['/images/main-1.png', '/images/main-2.png', '/images/main-3.png'];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -543,6 +637,9 @@ const Hero = () => {
             key={img}
             src={img}
             alt=""
+            loading={index === 0 ? 'eager' : 'lazy'}
+            fetchPriority={index === 0 ? 'high' : 'auto'}
+            decoding="async"
             className={`absolute inset-0 w-full h-full object-cover grayscale-[0.3] transition-opacity duration-1000 ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'
             }`}
@@ -669,6 +766,9 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                     <img
                       src={project.images[0].src}
                       alt={project.images[0].alt}
+                      loading="eager"
+                      decoding="async"
+                      sizes="(min-width: 768px) 960px, 100vw"
                       className="w-full max-h-[72vh] object-contain mx-auto transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                   </div>
@@ -693,6 +793,9 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                           <img
                             src={image.src}
                             alt={image.alt}
+                            loading={index < 2 ? 'eager' : 'lazy'}
+                            decoding="async"
+                            sizes="(min-width: 768px) 480px, 100vw"
                             className="w-full max-h-[48vh] object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                         </div>
@@ -795,6 +898,9 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
           <img
             src={currentImage.src}
             alt={currentImage.alt}
+            loading="eager"
+            decoding="async"
+            sizes="100vw"
             className="max-w-full max-h-[82vh] object-contain"
           />
         </div>
@@ -901,6 +1007,10 @@ const ProjectsGrid = () => {
                   <img
                     src={project.coverImage}
                     alt={project.title}
+                    loading={idx < 3 ? 'eager' : 'lazy'}
+                    fetchPriority={idx < 3 ? 'high' : 'auto'}
+                    decoding="async"
+                    sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 transition-colors duration-500" />
@@ -959,7 +1069,14 @@ const AboutSection = () => {
               transition={{ duration: 1 }}
               className="aspect-square relative z-10"
             >
-              <img src="/images/about-1.png" alt="Office Interior" className="w-full h-full object-cover" />
+              <img
+                src="/images/about-1.png"
+                alt="Office Interior"
+                loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                className="w-full h-full object-cover"
+              />
             </motion.div>
             <div className="absolute -top-12 -left-12 w-64 h-64 border border-brand-accent/20 -z-0" />
             <div className="absolute -bottom-12 -right-12 bg-brand-accent/10 w-full h-full -z-0" />
@@ -1033,6 +1150,7 @@ const PartnerMarquee = ({
     src={logo.src}
     alt={logo.name}
     loading="lazy"
+    decoding="async"
     className="h-8 md:h-10 w-auto object-contain opacity-50 grayscale transition-all duration-300 hover:opacity-100 hover:grayscale-0"
   />
 </div>
@@ -1179,6 +1297,8 @@ const ContactSection = () => {
                 alt="D&A office location map"
                 className="w-full h-auto object-cover"
                 loading="lazy"
+                decoding="async"
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
             <div className="px-2 md:px-1 pt-5 md:pt-6">
@@ -1235,9 +1355,10 @@ export default function App() {
   const [isFirmProfileOpen, setIsFirmProfileOpen] = useState(false);
 
   return (
-    <div className="min-h-screen selection:bg-brand-accent selection:text-white">
+    <div className="min-h-screen pb-20 selection:bg-brand-accent selection:text-white md:pb-0">
       <Navbar onFirmProfileOpen={() => setIsFirmProfileOpen(true)} />
       <FirmProfileModal isOpen={isFirmProfileOpen} onClose={() => setIsFirmProfileOpen(false)} />
+      <FloatingNavigation onFirmProfileOpen={() => setIsFirmProfileOpen(true)} />
       <Hero />
       <AboutSection />
       <PartnersSection />

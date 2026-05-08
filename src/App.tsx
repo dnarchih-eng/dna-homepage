@@ -26,6 +26,7 @@ interface ProjectSource {
   category: string;
   image: string;
   year: string;
+  groupKey?: string;
 }
 
 interface ProjectImage {
@@ -45,9 +46,11 @@ interface Project {
 
 interface TeamMember {
   name: string;
-  role: string;
+  title: string;
   department: string;
-  focus: string;
+  responsibilities?: string;
+  credentials?: string[];
+  history?: string[];
 }
 
 interface OrganizationGroup {
@@ -64,14 +67,25 @@ const getThumbnailSrc = (src: string) => {
     .replace(/\.(jpe?g|png|webp)$/i, '.jpg');
 };
 
+const getInitials = (name: string) =>
+  name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0])
+    .join('')
+    .toUpperCase();
+
+const isPrincipalGroup = (title: string) => title === 'Principal Office';
+
 // --- Source Data ---
 const PROJECT_SOURCES: ProjectSource[] = [
   { id: 27, title: "Seocho-dong Complex", category: "Public", image: "/works/pub-7.jpg", year: "2022" },
   { id: 26, title: "Hwasun building", category: "Etc", image: "/works/etc-7.jpg", year: "2025" },
   { id: 25, title: "Hongcheon building", category: "Etc", image: "/works/etc-6.jpg", year: "2020" },
   { id: 24, title: "Chuncheon Office", category: "Public", image: "/works/pub-6.jpg", year: "2020" },
-  { id: 22, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-4.jpg", year: "2025" },
-  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025" },
+  { id: 22, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-4.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
+  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
   { id: 21, title: "Housing Gallery", category: "Etc", image: "/works/etc-5.jpg", year: "2019" },
   { id: 20, title: "Induk University", category: "Etc", image: "/works/etc-4.jpg", year: "2019" },
   { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2019" },
@@ -122,7 +136,7 @@ const ORGANIZATION_GROUPS: OrganizationGroup[] = [
   {
     title: "Principal Office",
     description: "Direction, client communication, and design leadership.",
-    members: ["CEO / Principal Architect", "Design Director"],
+    members: ["CEO / Principal Architect", "Principal Architects"],
   },
   {
     title: "Architecture Studio",
@@ -130,41 +144,99 @@ const ORGANIZATION_GROUPS: OrganizationGroup[] = [
     members: ["Project Architects", "Designers", "BIM / CAD Specialists"],
   },
   {
-    title: "Engineering Studio",
-    description: "Structural, mechanical, electrical, and technical coordination.",
-    members: ["Structural Engineers", "MEP Engineers", "Technical Review"],
+    title: "Building Diagnostics",
+    description: "Building maintenance, condition inspection, safety review, and facility consulting.",
+    members: ["Building Inspection", "Maintenance Planning", "Safety Review"],
   },
   {
-    title: "Management",
-    description: "Permits, administration, scheduling, and project support.",
-    members: ["Project Management", "Administration", "Client Support"],
+    title: "Administration",
+    description: "Permits, documentation, scheduling, contracts, and office operations.",
+    members: ["Permits & Documents", "Contracts", "Office Operations"],
   },
 ];
 
 const TEAM_MEMBERS: TeamMember[] = [
   {
-    name: "D&A Leadership",
-    role: "Principal Architect",
+    name: "Kim, Taechang",
+    title: "CEO / Principal Architect",
     department: "Principal Office",
-    focus: "Architectural direction, client strategy, and design quality.",
+    responsibilities: "Firm leadership, client strategy, and architectural direction.",
+    credentials: ["Registered Architect, KIRA"],
+    history: [
+      "U-il Architects.,Inc 1996~1999",
+      "Damdu Architects.,Inc 1999~2007",
+      "D& Architects.,Inc 2007~current",
+    ],
   },
   {
-    name: "Design Studio",
-    role: "Project Architects",
+    name: "Park, Seonghwan",
+    title: "Principal Architect",
+    department: "Principal Office",
+    responsibilities: "Architectural planning, design review, and project leadership.",
+    credentials: [],
+    history: [
+      "Boorim Architects.,Inc 1987~1990",
+      "U-il Architects.,Inc 1990~1999",
+      "Damdu Architects.,Inc 1999~2007",
+      "D& Architects.,Inc 2007~current",
+    ],
+  },
+  {
+    name: "You, Daeguen",
+    title: "Principal Architect",
+    department: "Principal Office",
+    responsibilities: "Architectural planning, branch collaboration, and project leadership.",
+    credentials: ["Registered Architect, KIRA"],
+    history: [
+      "U-il Architects.,Inc 1992~1999",
+      "You, yongjun Architects.,Inc 2000~current (Gangseo Branch)",
+      "D& Architects.,Inc 2007~current",
+    ],
+  },
+  {
+    name: "Park, Seung Hyun",
+    title: "Project Architect",
     department: "Architecture Studio",
-    focus: "Planning, concept design, documentation, and construction coordination.",
   },
   {
-    name: "Engineering Team",
-    role: "Technical Partners",
-    department: "Engineering Studio",
-    focus: "Structural and MEP coordination for buildable, durable spaces.",
+    name: "Choi, Tae Hee",
+    title: "Architecture Studio",
+    department: "Architecture Studio",
   },
   {
-    name: "Project Support",
-    role: "Management Team",
-    department: "Management",
-    focus: "Schedules, permits, administration, and communication support.",
+    name: "Lee, Jong IL",
+    title: "Architecture Studio",
+    department: "Architecture Studio",
+  },
+  {
+    name: "Lee, Chang Hoon",
+    title: "Building Inspection / Maintenance",
+    department: "Building Diagnostics",
+  },
+  {
+    name: "Park, Hyo Jin",
+    title: "Building Diagnostics",
+    department: "Building Diagnostics",
+  },
+  {
+    name: "Oh, Taek Hyeon",
+    title: "Building Diagnostics",
+    department: "Building Diagnostics",
+  },
+  {
+    name: "Kim, Jae Beom",
+    title: "Administrative Support",
+    department: "Administration",
+  },
+  {
+    name: "Kim, Chae Yeon",
+    title: "Administration",
+    department: "Administration",
+  },
+  {
+    name: "Moon, Byeong Gu",
+    title: "Administration",
+    department: "Administration",
   },
 ];
 
@@ -202,7 +274,7 @@ const PROJECTS: Project[] = (() => {
   const grouped = new Map<string, Project>();
 
   for (const item of PROJECT_SOURCES) {
-    const key = `${item.title}__${item.category}`;
+    const key = item.groupKey ?? `project-${item.id}`;
     const existing = grouped.get(key);
 
     if (existing) {
@@ -405,7 +477,6 @@ const FirmProfileModal = ({ isOpen, onClose }: FirmProfileModalProps) => {
                 <div>
                   <h2 className="balanced-heading text-4xl md:text-6xl font-serif leading-tight">
                     D&amp;A Architects <br />
-                    <span className="italic">&amp; Engineers</span>
                   </h2>
                 </div>
                 <p className="readable-copy text-sm md:text-base leading-relaxed text-brand-light/65 font-light max-w-2xl">
@@ -451,37 +522,54 @@ const FirmProfileModal = ({ isOpen, onClose }: FirmProfileModalProps) => {
                     <div className="text-sm uppercase tracking-[0.2em] text-brand-dark/45">4 divisions</div>
                   </div>
 
-                  <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8 lg:gap-12">
-                    <div className="border border-brand-dark/10 bg-brand-light p-6 md:p-8">
+                  <div className="relative">
+                    <div className="mx-auto max-w-xl border border-brand-dark/10 bg-brand-dark p-6 text-brand-light md:p-8">
                       <div className="mb-6 flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-dark text-brand-light">
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-dark">
                           <BriefcaseBusiness className="w-5 h-5" />
                         </div>
                         <div>
-                          <p className="text-xs uppercase tracking-[0.22em] text-brand-dark/45">Leadership</p>
-                          <h4 className="text-2xl font-serif">Principal Office</h4>
+                          <p className="text-xs uppercase tracking-[0.22em] text-brand-light/45">Leadership</p>
+                          <h4 className="text-3xl font-serif">{ORGANIZATION_GROUPS[0].title}</h4>
                         </div>
                       </div>
-                      <div className="space-y-4">
-                        {ORGANIZATION_GROUPS.slice(1).map((group) => (
-                          <div key={group.title} className="border-l border-brand-accent/40 pl-5">
-                            <h5 className="font-serif text-xl">{group.title}</h5>
-                            <p className="readable-copy mt-1 text-sm leading-relaxed text-brand-dark/55">{group.description}</p>
+                      <p className="readable-copy text-sm leading-relaxed text-brand-light/65">
+                        {ORGANIZATION_GROUPS[0].description}
+                      </p>
+                      <div className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                        {ORGANIZATION_GROUPS[0].members.map((member) => (
+                          <div
+                            key={member}
+                            className="border-t border-brand-light/15 pt-2 text-xs uppercase tracking-[0.18em] text-brand-light/60"
+                          >
+                            {member}
                           </div>
                         ))}
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {ORGANIZATION_GROUPS.map((group) => (
-                        <div key={group.title} className="border border-brand-dark/10 p-6 hover:border-brand-accent transition-colors">
-                          <h4 className="text-2xl font-serif mb-3">{group.title}</h4>
-                          <p className="readable-copy text-sm leading-relaxed text-brand-dark/55 mb-6">{group.description}</p>
-                          <div className="space-y-2">
+                    <div className="mx-auto h-10 w-px bg-brand-dark/15" aria-hidden="true" />
+                    <div className="hidden md:block mx-auto h-px w-[66%] bg-brand-dark/15" aria-hidden="true" />
+
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                      {ORGANIZATION_GROUPS.slice(1).map((group) => (
+                        <div key={group.title} className="relative border border-brand-dark/10 bg-white p-6 transition-colors hover:border-brand-accent md:p-7">
+                          <div className="absolute -top-10 left-1/2 hidden h-10 w-px -translate-x-1/2 bg-brand-dark/15 md:block" aria-hidden="true" />
+                          <div className="mb-5 flex items-start justify-between gap-4">
+                            <div>
+                              <p className="mb-3 text-xs uppercase tracking-[0.22em] text-brand-accent">Division</p>
+                              <h4 className="text-2xl font-serif leading-tight">{group.title}</h4>
+                            </div>
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-accent">
+                              <Network className="w-5 h-5" />
+                            </div>
+                          </div>
+                          <p className="readable-copy min-h-20 text-sm leading-relaxed text-brand-dark/55">{group.description}</p>
+                          <div className="mt-6 space-y-2">
                             {group.members.map((member) => (
                               <div
                                 key={member}
-                                className="text-xs uppercase tracking-[0.18em] text-brand-dark/60 border-t border-brand-dark/8 pt-2"
+                                className="border-t border-brand-dark/8 pt-2 text-xs uppercase tracking-[0.18em] text-brand-dark/60"
                               >
                                 {member}
                               </div>
@@ -497,34 +585,120 @@ const FirmProfileModal = ({ isOpen, onClose }: FirmProfileModalProps) => {
                   <div className="mb-10 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
                     <div>
                       <span className="text-brand-accent text-xs uppercase tracking-[0.24em] block mb-3">
-                        Team Introduction
+                        Team Roster
                       </span>
                       <h3 className="text-3xl md:text-5xl font-serif">People</h3>
                     </div>
-                    <div className="text-sm uppercase tracking-[0.2em] text-brand-dark/45">Core roles</div>
+                    <div className="text-[11px] uppercase tracking-[0.18em] text-brand-dark/35">
+                      {TEAM_MEMBERS.length} profiles
+                    </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    {TEAM_MEMBERS.map((member) => (
-                      <div
-                        key={`${member.name}-${member.role}`}
-                        className="group border border-brand-dark/10 bg-white p-6 md:p-8 transition-colors hover:border-brand-accent"
-                      >
-                        <div className="mb-8 flex items-start justify-between gap-4">
-                          <div>
-                            <p className="text-xs uppercase tracking-[0.22em] text-brand-accent mb-3">
-                              {member.department}
-                            </p>
-                            <h4 className="text-3xl font-serif leading-tight">{member.name}</h4>
+                  <div className="space-y-8">
+                    {ORGANIZATION_GROUPS.map((group) => {
+                      const departmentMembers = TEAM_MEMBERS.filter((member) => member.department === group.title);
+                      const isPrincipal = isPrincipalGroup(group.title);
+
+                      return (
+                        <section key={group.title} className="border-t border-brand-dark/10 pt-6">
+                          <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                            <div>
+                              <p className="mb-2 text-xs uppercase tracking-[0.22em] text-brand-accent">
+                                {isPrincipal ? 'Principals' : group.title}
+                              </p>
+                              <h4 className="text-[11px] uppercase tracking-[0.18em] text-brand-dark/35">
+                                {departmentMembers.length} {departmentMembers.length === 1 ? 'member' : 'members'}
+                              </h4>
+                            </div>
+                            {isPrincipal && (
+                              <p className="readable-copy max-w-xl text-sm leading-relaxed text-brand-dark/50">
+                                {group.description}
+                              </p>
+                            )}
                           </div>
-                          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-light text-brand-accent group-hover:bg-brand-dark group-hover:text-brand-light transition-colors">
-                            <Users className="w-5 h-5" />
-                          </div>
-                        </div>
-                        <p className="text-sm uppercase tracking-[0.2em] text-brand-dark/45 mb-4">{member.role}</p>
-                        <p className="readable-copy text-base leading-relaxed text-brand-dark/62 font-light">{member.focus}</p>
-                      </div>
-                    ))}
+
+                          {isPrincipal ? (
+                            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+                              {departmentMembers.map((member, memberIndex) => {
+                                const isFeaturedMember = memberIndex === 0;
+
+                                return (
+                                <article
+                                  key={`${member.department}-${member.name}-${member.title}`}
+                                  className={`group border p-5 transition-colors hover:border-brand-accent md:p-6 ${
+                                    isFeaturedMember
+                                      ? 'border-[#d6c5ae] bg-[#efe5d6]'
+                                      : 'border-brand-dark/10 bg-white'
+                                  }`}
+                                >
+                                  <div className="mb-5 flex items-start gap-4">
+                                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand-dark text-sm font-medium tracking-[0.16em] text-brand-light group-hover:bg-brand-accent transition-colors">
+                                      {getInitials(member.name)}
+                                    </div>
+                                    <div className="min-w-0">
+                                      <h5 className="text-2xl font-serif leading-tight">{member.name}</h5>
+                                      <p className="mt-1 text-xs uppercase tracking-[0.18em] text-brand-dark/45">
+                                        {member.title}
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <p className="readable-copy text-sm leading-relaxed text-brand-dark/60">
+                                    {member.responsibilities}
+                                  </p>
+
+                                  {member.credentials && member.credentials.length > 0 && (
+                                    <div className="mt-5 flex flex-wrap gap-2">
+                                      {member.credentials.map((credential) => (
+                                        <span
+                                          key={credential}
+                                          className="border border-brand-dark/10 px-3 py-1 text-[10px] uppercase tracking-[0.16em] text-brand-dark/55"
+                                        >
+                                          {credential}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  )}
+
+                                  {member.history && member.history.length > 0 && (
+                                    <div className="mt-5 space-y-2 border-t border-brand-dark/8 pt-4">
+                                      {member.history.map((item) => (
+                                        <p key={item} className="text-xs leading-relaxed text-brand-dark/45">
+                                          {item}
+                                        </p>
+                                    ))}
+                                  </div>
+                                )}
+                              </article>
+                                );
+                              })}
+                            </div>
+                          ) : (
+                            <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                              {departmentMembers.map((member, memberIndex) => {
+                                const isFeaturedMember = memberIndex === 0;
+
+                                return (
+                                <div
+                                  key={`${member.department}-${member.name}`}
+                                  className={`flex min-h-14 items-center justify-between gap-4 border px-4 py-3 ${
+                                    isFeaturedMember
+                                      ? 'border-[#d6c5ae] bg-[#efe5d6]'
+                                      : 'border-brand-dark/8 bg-white'
+                                  }`}
+                                >
+                                  <span className="text-lg font-serif leading-tight">{member.name}</span>
+                                  <span className="text-[10px] uppercase tracking-[0.16em] text-brand-dark/30">
+                                    {getInitials(member.name)}
+                                  </span>
+                                </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </section>
+                      );
+                    })}
                   </div>
                 </div>
               )}

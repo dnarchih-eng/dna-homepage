@@ -93,7 +93,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 17, title: "Yangpyeong-building", category: "Etc", image: "/works/etc-2.jpg", year: "2014" },
   { id: 16, title: "Andong-building", category: "Etc", image: "/works/etc-1.jpg", year: "2006" },
   { id: 15, title: "Sisa Language School", category: "Office", image: "/works/office-3.jpg", year: "2007" },
-  { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2025" },
+  { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2009" },
   { id: 13, title: "BURGER KING", category: "F&B", image: "/works/burgerking-1.jpg", year: "2025" },
   { id: 12, title: "Bio-Convergence Center", category: "Public", image: "/works/pub-2.jpg", year: "2021" },
   { id: 11, title: "Vavas Mall", category: "Retail", image: "/works/retail-1.jpg", year: "2024" },

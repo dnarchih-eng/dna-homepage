@@ -67,6 +67,8 @@ const getThumbnailSrc = (src: string) => {
     .replace(/\.(jpe?g|png|webp)$/i, '.jpg');
 };
 
+const isVideoSrc = (src: string) => /\.(mp4|webm|ogg)$/i.test(src.split('?')[0]);
+
 const getInitials = (name: string) =>
   name
     .split(/\s+/)
@@ -80,33 +82,43 @@ const isPrincipalGroup = (title: string) => title === 'Principal Office';
 
 // --- Source Data ---
 const PROJECT_SOURCES: ProjectSource[] = [
-  { id: 27, title: "Seocho-dong Complex", category: "Public", image: "/works/pub-7.jpg", year: "2022" },
-  { id: 26, title: "Hwasun building", category: "Etc", image: "/works/etc-7.jpg", year: "2024" },
-  { id: 25, title: "Hongcheon building", category: "Etc", image: "/works/etc-6.jpg", year: "2015" },
-  { id: 24, title: "Chuncheon Office", category: "Public", image: "/works/pub-6.jpg", year: "2020" },
-  { id: 22, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-4.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
-  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
-  { id: 21, title: "Housing Gallery", category: "Etc", image: "/works/etc-5.jpg", year: "2017" },
-  { id: 20, title: "Induk University", category: "Etc", image: "/works/etc-4.jpg", year: "2011" },
-  { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2015" },
-  { id: 18, title: "Officetel", category: "Office", image: "/works/officetel-2.jpg", year: "2020" },
-  { id: 17, title: "Yangpyeong-building", category: "Etc", image: "/works/etc-2.jpg", year: "2014" },
-  { id: 16, title: "Andong-building", category: "Etc", image: "/works/etc-1.jpg", year: "2006" },
-  { id: 15, title: "Sisa Language School", category: "Office", image: "/works/office-3.jpg", year: "2007" },
-  { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2009" },
-  { id: 13, title: "BURGER KING", category: "F&B", image: "/works/burgerking-1.jpg", year: "2025" },
-  { id: 12, title: "Bio-Convergence Center", category: "Public", image: "/works/pub-2.jpg", year: "2021" },
-  { id: 11, title: "Vavas Mall", category: "Retail", image: "/works/retail-1.jpg", year: "2024" },
-  { id: 10, title: "Eastern Forest Service", category: "Public", image: "/works/pub-1.jpg", year: "2010" },
-  { id: 8, title: "Guui-Officetel", category: "Office", image: "/works/officetel-1.jpg", year: "2011" },
-  { id: 7, title: "Gangseo-Office", category: "Office", image: "/works/office-2.jpg", year: "2007" },
-  { id: 6, title: "Galhyeon-Office", category: "Office", image: "/works/office-1.jpg", year: "2006" },
-  { id: 4, title: "MUJI", category: "Retail", image: "/works/muji-1.jpg", year: "2025" },
   { id: 1, title: "McDonald's", category: "F&B", image: "/works/mc-1.jpg", year: "2011" },
   { id: 2, title: "UNIQLO", category: "Retail", image: "/works/uq-main.jpg", year: "2013" },
-  { id: 3, title: "Office of Education Support", category: "Public", image: "/works/pub-main.jpg", year: "2025" },
-  { id: 9, title: "McDonald's", category: "F&B", image: "/works/mc-2.jpg", year: "2023" },
+  { id: 3, title: "Office of Education Support", category: "Public", image: "/works/pub-main.jpg", year: "2025", groupKey: "WONJU-EDU" },
+  { id: 4, title: "MUJI", category: "Retail", image: "/works/muji-1.jpg", year: "2025" },
   { id: 5, title: "PaulBassett", category: "F&B", image: "/works/paulbassett-1.jpg", year: "2022" },
+  { id: 6, title: "Galhyeon-Office", category: "Office", image: "/works/office-1.jpg", year: "2006" },
+  { id: 7, title: "Gangseo-Office", category: "Office", image: "/works/office-2.jpg", year: "2007" },
+  { id: 8, title: "Guui-Officetel", category: "Office", image: "/works/officetel-1.jpg", year: "2011" },
+  { id: 9, title: "McDonald's", category: "F&B", image: "/works/mc-2.jpg", year: "2023" },
+  { id: 10, title: "Eastern Forest Service", category: "Public", image: "/works/pub-1.jpg", year: "2010" },
+  { id: 11, title: "Vavas Mall", category: "Retail", image: "/works/retail-1.jpg", year: "2024", groupKey: "vavas-mall" },
+  { id: 12, title: "Bio-Convergence Center", category: "Public", image: "/works/pub-2.jpg", year: "2021", groupKey: "bio-convergence-center" },
+  { id: 13, title: "BURGER KING", category: "F&B", image: "/works/burgerking-1.jpg", year: "2025" },
+  { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2009" },
+  { id: 15, title: "Sisa Language School", category: "Office", image: "/works/office-3.jpg", year: "2007" },
+  { id: 16, title: "Andong-building", category: "Etc", image: "/works/etc-1.jpg", year: "2006" },
+  { id: 17, title: "Yangpyeong-building", category: "Etc", image: "/works/etc-2.jpg", year: "2014" },
+  { id: 18, title: "Officetel", category: "Office", image: "/works/officetel-2.jpg", year: "2020", groupKey: "Officetel(1)" },
+  { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2015" },
+  { id: 20, title: "Induk University", category: "Etc", image: "/works/etc-4.jpg", year: "2011" },
+  { id: 21, title: "Housing Gallery", category: "Etc", image: "/works/etc-5.jpg", year: "2017" },
+  { id: 22, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-4.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
+  { id: 23, title: "World Taekwondo Federation", category: "Public", image: "/works/pub-5.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
+  { id: 24, title: "Chuncheon Office", category: "Public", image: "/works/pub-6.jpg", year: "2020", groupKey: "chuncheon-office" },
+  { id: 25, title: "Hongcheon building", category: "Etc", image: "/works/etc-6.jpg", year: "2015" },
+  { id: 26, title: "Hwasun building", category: "Etc", image: "/works/etc-7.jpg", year: "2024" },
+  { id: 27, title: "Seocho-dong Complex", category: "Public", image: "/works/pub-7.jpg", year: "2022" },
+  { id: 28, title: "Office of Education Support", category: "Public", image: "/works/pub-8.mp4", year: "2025", groupKey: "WONJU-EDU" },
+  { id: 29, title: "Complex Parking Center", category: "Public", image: "/works/pub-9.jpg", year: "2026", groupKey: "songnea-parking" },
+  { id: 30, title: "Officetel", category: "Office", image: "/works/officetel-3.jpg", year: "2020", groupKey: "Officetel(1)" },
+  { id: 31, title: "Bio-Convergence Center", category: "Public", image: "/works/pub-10.jpg", year: "2021", groupKey: "bio-convergence-center" },
+  { id: 32, title: "Chuncheon Office", category: "Public", image: "/works/pub-11.jpg", year: "2020", groupKey: "chuncheon-office" },
+  { id: 33, title: "Vavas Mall", category: "Retail", image: "/works/retail-2.jpg", year: "2024", groupKey: "vavas-mall" },
+  { id: 34, title: "World Taekwondo Federation", category: "Public", image: "/works/pub_12.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
+  { id: 35, title: "Cross Avenue", category: "Retail", image: "/works/retail-3.jpg", year: "2026", groupKey: "yonginCA" },
+  { id: 36, title: "Cross Avenue", category: "Retail", image: "/works/retail-4.jpg", year: "2026", groupKey: "yonginCA" },
+
 ];
 
 const SERVICES = [
@@ -306,10 +318,67 @@ const PROJECTS: Project[] = (() => {
     });
   }
 
-  return Array.from(grouped.values()).sort((a, b) => Number(b.year) - Number(a.year) || b.id - a.id);
+  return Array.from(grouped.values()).sort((a, b) => Number(b.year) - Number(a.year) || a.id - b.id);
 })();
 
 // --- Components ---
+interface ProjectMediaProps {
+  src: string;
+  alt: string;
+  className: string;
+  loading?: 'eager' | 'lazy';
+  fetchPriority?: 'high' | 'low' | 'auto';
+  sizes?: string;
+  preferThumbnail?: boolean;
+  controls?: boolean;
+}
+
+const ProjectMedia = ({
+  src,
+  alt,
+  className,
+  loading = 'lazy',
+  fetchPriority = 'auto',
+  sizes,
+  preferThumbnail = false,
+  controls = false,
+}: ProjectMediaProps) => {
+  if (isVideoSrc(src)) {
+    return (
+      <video
+        src={src}
+        aria-label={alt}
+        className={className}
+        autoPlay
+        muted={!controls}
+        loop={!controls}
+        playsInline
+        controls={controls}
+        preload={loading === 'eager' ? 'auto' : 'metadata'}
+      />
+    );
+  }
+
+  const imageSrc = preferThumbnail ? getThumbnailSrc(src) : src;
+
+  return (
+    <img
+      src={imageSrc}
+      alt={alt}
+      loading={loading}
+      fetchPriority={fetchPriority}
+      decoding="async"
+      sizes={sizes}
+      onError={(event) => {
+        if (!preferThumbnail) return;
+        event.currentTarget.onerror = null;
+        event.currentTarget.src = src;
+      }}
+      className={className}
+    />
+  );
+};
+
 interface NavbarProps {
   onFirmProfileOpen: () => void;
 }
@@ -945,11 +1014,10 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                   className="block w-full group text-left"
                 >
                   <div className="bg-[#f5f5f3] rounded-2xl overflow-hidden">
-                    <img
+                    <ProjectMedia
                       src={project.images[0].src}
                       alt={project.images[0].alt}
                       loading="eager"
-                      decoding="async"
                       sizes="(min-width: 768px) 960px, 100vw"
                       className="w-full max-h-[72vh] object-contain mx-auto transition-transform duration-500 group-hover:scale-[1.02]"
                     />
@@ -961,7 +1029,7 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
               ) : (
                 <div>
                   <div className="mb-6 text-xs uppercase tracking-[0.24em] text-brand-dark/45">
-                    {project.images.length} related images
+                    {project.images.length} related media
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 items-start">
                     {project.images.map((image, index) => (
@@ -972,17 +1040,16 @@ const ProjectDetailModal = ({ project, onClose, onImageClick }: ProjectDetailMod
                         className="group block overflow-hidden rounded-2xl bg-[#f5f5f3] text-left"
                       >
                         <div className="flex items-center justify-center px-3 py-3 md:px-4 md:py-4">
-                          <img
+                          <ProjectMedia
                             src={image.src}
                             alt={image.alt}
                             loading={index < 2 ? 'eager' : 'lazy'}
-                            decoding="async"
                             sizes="(min-width: 768px) 480px, 100vw"
                             className="w-full max-h-[48vh] object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                           />
                         </div>
                         <div className="px-4 py-3 text-[11px] uppercase tracking-[0.22em] text-brand-dark/55 border-t border-brand-dark/8">
-                          Image {index + 1}
+                          Media {index + 1}
                         </div>
                       </button>
                     ))}
@@ -1077,12 +1144,12 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
           <div className="text-center text-white/70 text-[11px] md:text-xs uppercase tracking-[0.24em]">
             {project.title} · {imageIndex + 1}/{project.images.length}
           </div>
-          <img
+          <ProjectMedia
             src={currentImage.src}
             alt={currentImage.alt}
             loading="eager"
-            decoding="async"
             sizes="100vw"
+            controls
             className="max-w-full max-h-[82vh] object-contain"
           />
         </div>
@@ -1186,17 +1253,13 @@ const ProjectsGrid = () => {
                 className="group cursor-pointer text-left"
               >
                 <div className="relative aspect-[4/5] overflow-hidden mb-6">
-                  <img
-                    src={getThumbnailSrc(project.coverImage)}
+                  <ProjectMedia
+                    src={project.coverImage}
                     alt={project.title}
                     loading={idx < 3 ? 'eager' : 'lazy'}
                     fetchPriority={idx < 3 ? 'high' : 'auto'}
-                    decoding="async"
                     sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-                    onError={(event) => {
-                      event.currentTarget.onerror = null;
-                      event.currentTarget.src = project.coverImage;
-                    }}
+                    preferThumbnail
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-brand-dark/0 group-hover:bg-brand-dark/20 transition-colors duration-500" />

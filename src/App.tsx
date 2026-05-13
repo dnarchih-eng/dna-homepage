@@ -1291,7 +1291,7 @@ const ProjectsGrid = () => {
                 type="button"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                transition={{ duration: 0.45, delay: Math.min(idx * 0.025, 0.3) }}
                 viewport={{ once: true }}
                 onClick={() => setSelectedProjectId(project.id)}
                 className="group cursor-pointer text-left"

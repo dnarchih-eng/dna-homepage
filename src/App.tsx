@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Menu,
@@ -98,7 +98,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2009" },
   { id: 15, title: "Sisa Language School", category: "Office", image: "/works/office-3.jpg", year: "2007" },
   { id: 16, title: "Andong-building", category: "Etc", image: "/works/etc-1.jpg", year: "2006" },
-  { id: 17, title: "Yangpyeong-building", category: "Etc", image: "/works/etc-2.jpg", year: "2014" },
+  { id: 17, title: "Yangpyeong-building", category: "Office", image: "/works/etc-2.jpg", year: "2014" },
   { id: 18, title: "Officetel", category: "Office", image: "/works/officetel-2.jpg", year: "2020", groupKey: "Officetel(1)" },
   { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2015" },
   { id: 20, title: "Induk University", category: "Etc", image: "/works/etc-4.jpg", year: "2011" },
@@ -146,11 +146,11 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 62, title: "STARBUCKS", category: "F&B", image: "/works/sb-11.jpg", year: "2021", groupKey: "sb-mg" },
   { id: 63, title: "STARBUCKS", category: "F&B", image: "/works/sb-12.jpg", year: "2021", groupKey: "sb-mg" },
   { id: 64, title: "STARBUCKS", category: "F&B", image: "/works/sb-13.jpg", year: "2021", groupKey: "sb-mg" },
-  { id: 65, title: "SSANGYONG MOTOR", category: "Industrial", image: "/works/sy-01.jpg", year: "2005", groupKey: "sy-pt" },
-  { id: 66, title: "SSANGYONG MOTOR", category: "Industrial", image: "/works/sy-02.jpg", year: "2005", groupKey: "sy-pt" },
-  { id: 67, title: "SSANGYONG MOTOR", category: "Industrial", image: "/works/sy-03.jpg", year: "2005", groupKey: "sy-pt" },
-  { id: 68, title: "SSANGYONG MOTOR", category: "Industrial", image: "/works/sy-04.jpg", year: "2005", groupKey: "sy-pt" },
-  { id: 69, title: "iBEX", category: "Industrial", image: "/works/ib-01.jpg", year: "2009" },
+  { id: 65, title: "SSANG YONG MOTOR", category: "Industrial", image: "/works/sy-01.jpg", year: "2005" },
+  { id: 66, title: "SSANG YONG MOTOR", category: "Industrial", image: "/works/sy-02.jpg", year: "2005" },
+  { id: 67, title: "SSANG YONG MOTOR", category: "Industrial", image: "/works/sy-03.jpg", year: "2005" },
+  { id: 68, title: "SSANG YONG MOTOR", category: "Industrial", image: "/works/sy-04.jpg", year: "2005" },
+  { id: 69, title: "iBEX", category: "Industrial", image: "/works/ib-01.png", year: "2009" },
   { id: 70, title: "ILGA", category: "Industrial", image: "/works/il-01.jpg", year: "2012", groupKey: "ilga" },
   { id: 71, title: "ILGA", category: "Industrial", image: "/works/il-02.jpg", year: "2012", groupKey: "ilga" },
   { id: 72, title: "Pyeongchang-dong houses", category: "Housing", image: "/works/pch-01.jpg", year: "2023", groupKey: "pch" },
@@ -1122,14 +1122,35 @@ interface ImageLightboxProps {
   onNext: () => void;
 }
 
+const lightboxImageVariants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? '100%' : '-100%',
+  }),
+  center: {
+    x: 0,
+  },
+  exit: (direction: number) => ({
+    x: direction > 0 ? '-100%' : '100%',
+  }),
+};
+
 const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLightboxProps) => {
+  const lastWheelNavigationAt = useRef(0);
+  const [navigationDirection, setNavigationDirection] = useState(1);
+
   useEffect(() => {
     if (!project || imageIndex === null) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') onClose();
-      if (event.key === 'ArrowLeft') onPrev();
-      if (event.key === 'ArrowRight') onNext();
+      if (event.key === 'ArrowLeft') {
+        setNavigationDirection(-1);
+        onPrev();
+      }
+      if (event.key === 'ArrowRight') {
+        setNavigationDirection(1);
+        onNext();
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
@@ -1144,15 +1165,45 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
   const currentImage = project.images[imageIndex];
   const showNav = project.images.length > 1;
 
+  const handlePreviousImage = () => {
+    setNavigationDirection(-1);
+    onPrev();
+  };
+
+  const handleNextImage = () => {
+    setNavigationDirection(1);
+    onNext();
+  };
+
+  const handleWheelNavigation = (event: React.WheelEvent<HTMLDivElement>) => {
+    if (!showNav || Math.abs(event.deltaY) < 20 || Math.abs(event.deltaY) < Math.abs(event.deltaX)) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    const now = Date.now();
+    if (now - lastWheelNavigationAt.current < 450) return;
+
+    lastWheelNavigationAt.current = now;
+    if (event.deltaY > 0) {
+      handleNextImage();
+    } else {
+      handlePreviousImage();
+    }
+  };
+
   return (
     <AnimatePresence>
       <motion.div
-        key={`lightbox-${project.id}-${imageIndex}`}
+        key={`lightbox-${project.id}`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className="fixed inset-0 z-[80] bg-black/92 p-4 md:p-8"
         onClick={onClose}
+        onWheel={handleWheelNavigation}
       >
         <button
           type="button"
@@ -1170,7 +1221,7 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
               aria-label="Previous image"
               onClick={(event) => {
                 event.stopPropagation();
-                onPrev();
+                handlePreviousImage();
               }}
               className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-20 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
             >
@@ -1181,7 +1232,7 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
               aria-label="Next image"
               onClick={(event) => {
                 event.stopPropagation();
-                onNext();
+                handleNextImage();
               }}
               className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-20 rounded-full bg-white/10 p-2 text-white hover:bg-white/20 transition-colors"
             >
@@ -1194,14 +1245,29 @@ const ImageLightbox = ({ project, imageIndex, onClose, onPrev, onNext }: ImageLi
           <div className="text-center text-white/70 text-[11px] md:text-xs uppercase tracking-[0.24em]">
             {project.title} · {imageIndex + 1}/{project.images.length}
           </div>
-          <ProjectMedia
-            src={currentImage.src}
-            alt={currentImage.alt}
-            loading="eager"
-            sizes="100vw"
-            controls
-            className="max-w-full max-h-[82vh] object-contain"
-          />
+          <div className="relative flex h-[82vh] w-full items-center justify-center overflow-hidden">
+            <AnimatePresence initial={false} custom={navigationDirection} mode="popLayout">
+              <motion.div
+                key={currentImage.id}
+                custom={navigationDirection}
+                variants={lightboxImageVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute inset-0 flex items-center justify-center"
+              >
+                <ProjectMedia
+                  src={currentImage.src}
+                  alt={currentImage.alt}
+                  loading="eager"
+                  sizes="100vw"
+                  controls
+                  className="max-w-full max-h-full object-contain"
+                />
+              </motion.div>
+            </AnimatePresence>
+          </div>
         </div>
       </motion.div>
     </AnimatePresence>

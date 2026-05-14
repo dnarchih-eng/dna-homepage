@@ -159,7 +159,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 75, title: "Pyeongchang-dong houses", category: "Housing", image: "/works/pch-04.jpg", year: "2023", groupKey: "pch" },
   { id: 76, title: "Gwangjang-dong housing", category: "Housing", image: "/works/gjh-01.jpg", year: "2007" },
   { id: 77, title: "Hannam-dong housing", category: "Housing", image: "/works/hnh-01.png", year: "2007" },
-  { id: 78, title: "Hannam-dong housing", category: "Housing", image: "/works/hnh-02.png", year: "2008" },
+  { id: 78, title: "Hannam-dong housing", category: "Housing", image: "/works/hnh-02.jpg", year: "2008" },
   { id: 79, title: "Seocho-dong housing", category: "Housing", image: "/works/sch-01.jpg", year: "2019" },
   { id: 80, title: "Wondang-ri housing", category: "Housing", image: "/works/wdh-01.jpg", year: "2020" },
   { id: 81, title: "Gami-dong housing", category: "Housing", image: "/works/gdh-01.JPG", year: "2023", groupKey: "gdh" },

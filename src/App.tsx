@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { Analytics } from '@vercel/analytics/react';
 import {
   Menu,
   X,
@@ -1731,6 +1732,7 @@ export default function App() {
       <ServicesSection />
       <ContactSection />
       <Footer />
+      <Analytics />
     </div>
   );
 }

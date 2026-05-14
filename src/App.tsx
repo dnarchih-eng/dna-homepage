@@ -116,11 +116,11 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 32, title: "Chuncheon Office", category: "Public", image: "/works/pub-11.jpg", year: "2020", groupKey: "chuncheon-office" },
   { id: 33, title: "Vavas Mall", category: "Retail", image: "/works/retail-2.jpg", year: "2024", groupKey: "vavas-mall" },
   { id: 34, title: "World Taekwondo Federation", category: "Public", image: "/works/pub_12.jpg", year: "2025", groupKey: "world-taekwondo-federation" },
-  { id: 35, title: "Cross Avenue", category: "Retail", image: "/works/retail-3.jpg", year: "2026", groupKey: "yonginCA" },
+  { id: 39, title: "Cross Avenue", category: "Retail", image: "/works/retail-3.jpg", year: "2026", groupKey: "yonginCA" },
   { id: 36, title: "Cross Avenue", category: "Retail", image: "/works/retail-4.jpg", year: "2026", groupKey: "yonginCA" },
   { id: 37, title: "STARBUCKS", category: "F&B", image: "/works/sb-1.jpg", year: "2026" },
   { id: 38, title: "UNIQLO", category: "Retail", image: "/works/uq-3.jpg", year: "2026" },
-  { id: 39, title: "TOPTEN", category: "Retail", image: "/works/tt-1.png", year: "2026" },
+  { id: 35, title: "TOPTEN", category: "Retail", image: "/works/tt-1.png", year: "2026" },
   { id: 40, title: "McDonald's", category: "F&B", image: "/works/mc-3.jpg", year: "2025" },
   { id: 41, title: "TOPTEN", category: "Retail", image: "/works/tt-2.jpg", year: "2025" },
   { id: 42, title: "MOM'S TOUCH", category: "F&B", image: "/works/mt-1.jpg", year: "2025" },
@@ -346,6 +346,9 @@ const PROJECTS: Project[] = (() => {
       if (Number(item.year) > Number(existing.year)) {
         existing.year = item.year;
       }
+      if (item.id > existing.id) {
+        existing.id = item.id;
+      }
       continue;
     }
 
@@ -365,7 +368,7 @@ const PROJECTS: Project[] = (() => {
     });
   }
 
-  return Array.from(grouped.values()).sort((a, b) => Number(b.year) - Number(a.year) || a.id - b.id);
+  return Array.from(grouped.values()).sort((a, b) => Number(b.year) - Number(a.year) || b.id - a.id);
 })();
 
 // --- Components ---

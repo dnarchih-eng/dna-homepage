@@ -165,6 +165,13 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 81, title: "Gami-dong housing", category: "Housing", image: "/works/gdh-01.JPG", year: "2023", groupKey: "gdh" },
   { id: 82, title: "Gami-dong housing", category: "Housing", image: "/works/gdh-02.JPG", year: "2023", groupKey: "gdh" },
   { id: 83, title: "Gami-dong housing", category: "Housing", image: "/works/gdh-03.JPG", year: "2023", groupKey: "gdh" },
+  { id: 84, title: "OceanFood", category: "Industrial", image: "/works/of-01.jpg", year: "2021", groupKey: "oceanfood" },
+  { id: 85, title: "OceanFood", category: "Industrial", image: "/works/of-02.jpg", year: "2021", groupKey: "oceanfood" },
+  { id: 86, title: "OceanFood", category: "Industrial", image: "/works/of-03.jpg", year: "2021", groupKey: "oceanfood" },
+  { id: 87, title: "OceanFood", category: "Industrial", image: "/works/of-04.jpg", year: "2021", groupKey: "oceanfood" },
+  { id: 88, title: "OceanFood", category: "Industrial", image: "/works/of-05.jpg", year: "2021", groupKey: "oceanfood" },
+  { id: 89, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-01.jpg", year: "2026", groupKey: "didongilal" },
+  { id: 90, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-02.mp4", year: "2026", groupKey: "didongilal" },
 
 ];
 

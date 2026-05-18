@@ -172,7 +172,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 88, title: "OceanFood", category: "Industrial", image: "/works/of-05.jpg", year: "2021", groupKey: "oceanfood" },
   { id: 89, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-01.jpg", year: "2026", groupKey: "didongilal" },
   { id: 90, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-02.mp4", year: "2026", groupKey: "didongilal" },
-
+  { id: 91, title: "Complex Parking Center", category: "Public", image: "/works/pub-9.mp4", year: "2026", groupKey: "songnea-parking" },
 ];
 
 const SERVICES = [

@@ -97,7 +97,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 13, title: "BURGER KING", category: "F&B", image: "/works/burgerking-1.jpg", year: "2025" },
   { id: 14, title: "Forest Education Center", category: "Public", image: "/works/pub-3.jpg", year: "2009" },
   { id: 15, title: "Sisa Language School", category: "Office", image: "/works/office-3.jpg", year: "2007" },
-  { id: 16, title: "Andong-building", category: "Etc", image: "/works/etc-1.jpg", year: "2006" },
+  { id: 16, title: "Yeongju-building", category: "Office", image: "/works/etc-1.jpg", year: "2016" },
   { id: 17, title: "Yangpyeong-building", category: "Office", image: "/works/etc-2.jpg", year: "2014" },
   { id: 18, title: "Officetel", category: "Office", image: "/works/officetel-2.jpg", year: "2020", groupKey: "Officetel(1)" },
   { id: 19, title: "UNIQLO", category: "Retail", image: "/works/uq-2.jpg", year: "2015" },
@@ -173,6 +173,14 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 89, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-01.jpg", year: "2026", groupKey: "didongilal" },
   { id: 90, title: "DI DONGIL AL", category: "Industrial", image: "/works/dd-a-02.mp4", year: "2026", groupKey: "didongilal" },
   { id: 91, title: "Complex Parking Center", category: "Public", image: "/works/pub-9.mp4", year: "2026", groupKey: "songnea-parking" },
+  { id: 92, title: "Kogi-dong Office", category: "Office", image: "/works/office-6.jpeg", year: "2010", groupKey: "ko-of" },
+  { id: 93, title: "Kogi-dong Office", category: "Office", image: "/works/office-5.jpeg", year: "2010", groupKey: "ko-of" },
+  { id: 94, title: "Suji-dong Office", category: "Office", image: "/works/office-8.jpeg", year: "2018", groupKey: "su-of" },
+  { id: 95, title: "Suji-dong Office", category: "Office", image: "/works/office-7.jpeg", year: "2018", groupKey: "su-of" },
+  { id: 96, title: "McDonald's", category: "F&B", image: "/works/mc-10.jpeg", year: "2022" },
+  { id: 97, title: "Tower603", category: "Office", image: "/works/office-9.jpg", year: "2022"},
+
+
 ];
 
 const SERVICES = [

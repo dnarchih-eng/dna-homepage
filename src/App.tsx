@@ -175,11 +175,11 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 91, title: "Complex Parking Center", category: "Public", image: "/works/pub-9.mp4", year: "2026", groupKey: "songnea-parking" },
   { id: 92, title: "Kogi-dong Office", category: "Office", image: "/works/office-6.jpeg", year: "2010", groupKey: "ko-of" },
   { id: 93, title: "Kogi-dong Office", category: "Office", image: "/works/office-5.jpeg", year: "2010", groupKey: "ko-of" },
-  { id: 94, title: "Suji-dong Office", category: "Office", image: "/works/office-8.jpeg", year: "2018", groupKey: "su-of" },
-  { id: 95, title: "Suji-dong Office", category: "Office", image: "/works/office-7.jpeg", year: "2018", groupKey: "su-of" },
+  { id: 94, title: "Suji Office", category: "Office", image: "/works/office-8.jpeg", year: "2018", groupKey: "su-of" },
+  { id: 95, title: "Suji Office", category: "Office", image: "/works/office-7.jpeg", year: "2018", groupKey: "su-of" },
   { id: 96, title: "McDonald's", category: "F&B", image: "/works/mc-10.jpeg", year: "2022" },
   { id: 97, title: "Tower603", category: "Office", image: "/works/office-9.jpg", year: "2022"},
-
+  { id: 98, title: "OLIVE YOUNG", category: "Retail", image: "/works/oy-01.jpg", year: "2023" },
 
 ];
 

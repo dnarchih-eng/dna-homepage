@@ -83,7 +83,6 @@ const isPrincipalGroup = (title: string) => title === 'Principal Office';
 // --- Source Data ---
 const PROJECT_SOURCES: ProjectSource[] = [
   { id: 1, title: "McDonald's", category: "F&B", image: "/works/mc-1.jpg", year: "2011" },
-  { id: 2, title: "UNIQLO", category: "Retail", image: "/works/uq-main.jpg", year: "2013" },
   { id: 3, title: "Office of Education Support", category: "Public", image: "/works/pub-main.jpg", year: "2025", groupKey: "WONJU-EDU" },
   { id: 4, title: "MUJI", category: "Retail", image: "/works/muji-1.jpg", year: "2025" },
   { id: 5, title: "PaulBassett", category: "F&B", image: "/works/paulbassett-1.jpg", year: "2022" },

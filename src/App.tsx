@@ -120,10 +120,10 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 36, title: "Cross Avenue", category: "Retail", image: "/works/retail-4.jpg", year: "2026", groupKey: "yonginCA" },
   { id: 37, title: "STARBUCKS", category: "F&B", image: "/works/sb-1.jpg", year: "2026" },
   { id: 38, title: "UNIQLO", category: "Retail", image: "/works/uq-3.jpg", year: "2026" },
-  { id: 35, title: "TOPTEN", category: "Retail", image: "/works/tt-1.png", year: "2026" },
-  { id: 40, title: "McDonald's", category: "F&B", image: "/works/mc-3.jpg", year: "2025",groupKey: "mc-tr"  },
+  { id: 35, title: "TOPTEN", category: "Retail", image: "/works/tt-1.png", year: "2025", groupKey: "ttwj"  },
+  { id: 40, title: "MOM'S TOUCH", category: "F&B", image: "/works/mt-2.jpg", year: "2025", groupKey: "mt-jeju" },
   { id: 41, title: "TOPTEN", category: "Retail", image: "/works/tt-2.jpg", year: "2025" },
-  { id: 42, title: "MOM'S TOUCH", category: "F&B", image: "/works/mt-1.jpg", year: "2025" },
+  { id: 42, title: "MOM'S TOUCH", category: "F&B", image: "/works/mt-1.jpg", year: "2025", groupKey: "mt-jeju" },
   { id: 43, title: "McDonald's", category: "F&B", image: "/works/mc-4.jpg", year: "2025" },
   { id: 44, title: "McDonald's", category: "F&B", image: "/works/mc-5.jpg", year: "2025", groupKey: "mc-tr" },
   { id: 45, title: "STARBUCKS", category: "F&B", image: "/works/sb-2.jpg", year: "2025" },
@@ -180,6 +180,13 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 96, title: "McDonald's", category: "F&B", image: "/works/mc-10.jpeg", year: "2022" },
   { id: 97, title: "Tower603", category: "Office", image: "/works/office-9.jpg", year: "2022"},
   { id: 98, title: "OLIVE YOUNG", category: "Retail", image: "/works/oy-01.jpg", year: "2023" },
+  { id: 99, title: "TOPTEN", category: "Retail", image: "/works/tt-3.jpg", year: "2025", groupKey: "ttwj" },
+  { id: 100, title: "Cross Avenue", category: "Retail", image: "/works/hjd-1.jpg", year: "2019", groupKey: "hyoja-ca" },
+  { id: 101, title: "Cross Avenue", category: "Retail", image: "/works/hjd-2.jpg", year: "2019", groupKey: "hyoja-ca" },
+  { id: 102, title: "Cross Avenue", category: "Retail", image: "/works/hjd-3.jpg", year: "2019", groupKey: "hyoja-ca" },
+  { id: 103, title: "Cross Avenue", category: "Retail", image: "/works/hjd-4.jpg", year: "2019", groupKey: "hyoja-ca" },
+  { id: 104, title: "Cross Avenue", category: "Retail", image: "/works/hjd-5.jpg", year: "2019", groupKey: "hyoja-ca" },
+
 
 ];
 

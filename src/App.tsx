@@ -212,6 +212,11 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 129, title: "GH-Jihaeng", category: "Housing", image: "/works/ghj-1.jpg", year: "2023" },
   { id: 130, title: "GH-Geumto", category: "Housing", image: "/works/ghg-1.jpg", year: "2022" },
   { id: 131, title: "GH-Yangju", category: "Housing", image: "/works/ghy-1.jpg", year: "2021" },
+  { id: 132, title: "UNIQLO-JJ", category: "Retail", image: "/works/uq-jj-1.jpg", year: "2026", groupKey: "uq-jj" },
+  { id: 133, title: "UNIQLO-JJ", category: "Retail", image: "/works/uq-jj-2.jpg", year: "2026", groupKey: "uq-jj" },
+  { id: 134, title: "UNIQLO-JJ", category: "Retail", image: "/works/uq-jj-3.jpg", year: "2026", groupKey: "uq-jj" },
+  { id: 135, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-1.jpg", year: "2015", groupKey: "uq-ph" },
+  { id: 136, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-2.jpg", year: "2015", groupKey: "uq-ph" },
 ];
 
 const SERVICES = [

@@ -17,6 +17,8 @@ import {
   ChevronLeft,
   ChevronRight,
   ArrowUp,
+  Copy,
+  Check,
 } from 'lucide-react';
 
 // --- Types ---
@@ -1654,6 +1656,36 @@ const ServicesSection = () => {
 
 
 const ContactSection = () => {
+  const officeAddress = '서울특별시 서초구 잠원동 19-1, 경아빌딩 5층';
+  const officePhone = '+82 (02) 514 6959';
+  const officeEmail = 'dnarchi@hanmail.net';
+  const naverMapUrl =
+    'https://map.naver.com/p/entry/place/19567444?c=15.00,0,0,0,dh&placePath=/home?from=map&fromPanelNum=1&additionalHeight=76&timestamp=202606041318&locale=ko&svcName=map_pcv5';
+  const [copiedContactField, setCopiedContactField] = useState<'address' | 'phone' | 'email' | null>(null);
+
+  const copyContactValue = async (value: string, field: 'address' | 'phone' | 'email') => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = value;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.left = '-9999px';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+
+      setCopiedContactField(field);
+      window.setTimeout(() => setCopiedContactField(null), 1800);
+    } catch {
+      setCopiedContactField(null);
+    }
+  };
+
   return (
     <section id="contact" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6">
@@ -1671,7 +1703,17 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Address</h4>
-                  <p className="readable-copy text-lg font-light">서울특별시 서초구 잠원동 19-1, 경아빌딩 5층</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="readable-copy text-lg font-light">{officeAddress}</p>
+                    <button
+                      type="button"
+                      onClick={() => copyContactValue(officeAddress, 'address')}
+                      className="inline-flex h-8 w-8 items-center justify-center text-brand-dark/45 transition-colors hover:text-brand-accent"
+                      aria-label={copiedContactField === 'address' ? 'Office address copied' : 'Copy office address'}
+                    >
+                      {copiedContactField === 'address' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1681,7 +1723,17 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Phone</h4>
-                  <p className="text-lg font-light">+82 (02) 514 6959</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="text-lg font-light">{officePhone}</p>
+                    <button
+                      type="button"
+                      onClick={() => copyContactValue(officePhone, 'phone')}
+                      className="inline-flex h-8 w-8 items-center justify-center text-brand-dark/45 transition-colors hover:text-brand-accent"
+                      aria-label={copiedContactField === 'phone' ? 'Office phone copied' : 'Copy office phone'}
+                    >
+                      {copiedContactField === 'phone' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
@@ -1691,7 +1743,17 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="text-xs uppercase tracking-widest opacity-60 mb-2">Email</h4>
-                  <p className="text-lg font-light">dnarchi@hanmail.net</p>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="text-lg font-light">{officeEmail}</p>
+                    <button
+                      type="button"
+                      onClick={() => copyContactValue(officeEmail, 'email')}
+                      className="inline-flex h-8 w-8 items-center justify-center text-brand-dark/45 transition-colors hover:text-brand-accent"
+                      aria-label={copiedContactField === 'email' ? 'Office email copied' : 'Copy office email'}
+                    >
+                      {copiedContactField === 'email' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1718,12 +1780,29 @@ const ContactSection = () => {
               />
             </div>
             <div className="px-2 md:px-1 pt-5 md:pt-6">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <div>
+              <div className="flex items-center gap-4">
+                <div className="min-w-0">
                   <p className="text-xs uppercase tracking-[0.24em] text-brand-dark/45 mb-2">Office Map</p>
                   <p className="readable-copy text-lg font-light text-brand-dark">Sinsa Station Exit 4 · Kyungah Building 5F</p>
+                  <span className="mt-3 block text-sm uppercase tracking-[0.2em] text-brand-accent">3 min walk</span>
                 </div>
-                <span className="text-sm uppercase tracking-[0.2em] text-brand-accent">3 min walk</span>
+                <div className="ml-auto flex shrink-0 items-center">
+                  <a
+                    href={naverMapUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex h-20 w-20 items-center justify-center rounded-xl border border-brand-dark/10 bg-white/45 p-3 transition-colors hover:border-brand-dark/20 hover:bg-white/70 md:h-24 md:w-24"
+                    aria-label="Open D&A office location in Naver Map"
+                  >
+                    <img
+                      src="/ui/naver-map.png"
+                      alt=""
+                      className="h-full w-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                </div>
               </div>
             </div>
           </div>

@@ -219,6 +219,7 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 134, title: "UNIQLO-JJ", category: "Retail", image: "/works/uq-jj-3.jpg", year: "2026", groupKey: "uq-jj" },
   { id: 135, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-1.jpg", year: "2015", groupKey: "uq-ph" },
   { id: 136, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-2.jpg", year: "2015", groupKey: "uq-ph" },
+  { id: 137, title: "HYUNDAI-JG", category: "Office", image: "/works/hd-jg.jpg", year: "2023"},
 ];
 
 const SERVICES = [

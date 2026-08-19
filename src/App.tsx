@@ -220,6 +220,9 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 135, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-1.jpg", year: "2015", groupKey: "uq-ph" },
   { id: 136, title: "UNIQLO-PH", category: "Retail", image: "/works/uq-ph-2.jpg", year: "2015", groupKey: "uq-ph" },
   { id: 137, title: "HYUNDAI-JG", category: "Office", image: "/works/hd-jg.jpg", year: "2023"},
+  { id: 138, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-1.jpg", year: "2026", groupKey: "tt-sc" },
+  { id: 139, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-2.jpg", year: "2026", groupKey: "tt-sc" },
+  { id: 140, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-3.jpg", year: "2026", groupKey: "tt-sc" },
 ];
 
 const SERVICES = [

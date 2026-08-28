@@ -223,6 +223,9 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 138, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-1.jpg", year: "2026", groupKey: "tt-sc" },
   { id: 139, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-2.jpg", year: "2026", groupKey: "tt-sc" },
   { id: 140, title: "TOPTEN-SC", category: "Retail", image: "/works/tt-sc-3.jpg", year: "2026", groupKey: "tt-sc" },
+  { id: 141, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-01.jpg", year: "2026", groupKey: "mc-dg" },
+  { id: 142, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-02.jpg", year: "2026", groupKey: "mc-dg" },
+  { id: 143, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-03.jpg", year: "2026", groupKey: "mc-dg" },
 ];
 
 const SERVICES = [

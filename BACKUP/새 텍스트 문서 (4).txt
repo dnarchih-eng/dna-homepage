@@ -1,0 +1,18 @@
+Firebase Console의 Firestore에서 변경하면 됩니다.
+1. Firestore Database로 이동합니다.
+2. 아래 경로로 문서를 생성합니다.
+users/{사용자 UID}/moderation/profile
+3. profile 문서에 다음 필드를 추가합니다.
+필드	유형	값
+nickname	문자열	강제로 적용할 닉네임
+
+
+예시:
+users
+└─ abc123사용자UID
+   └─ moderation
+      └─ profile
+         └─ nickname: "새닉네임"
+사용자 UID는 Firebase Console의 Authentication → 사용자에서 해당 계정을 선택해 확인할 수 있습니다.
+변경 후 해당 사용자가 앱을 다시 실행하거나 재로그인하면 관리자 닉네임이 적용됩니다. 강제 변경을 해제하려면 users/{UID}/moderation/profile 문서를 삭제하면 원래 Authentication 닉네임으로 돌아갑니다.
+주의할 점이 하나 있습니다. 관리자 강제 닉네임은 현재 일반 닉네임 중복 등록부와 별도로 관리되므로, 강제 변경할 때는 Firestore의 nicknames 컬렉션에서 같은 이름이 사용 중인지 먼저 확인하는 것이 좋습니다. 완전히 자동화하려면 다음 단계에서 별도의 관리자 화면을 만들고 중복 확인까지 처리하는 방식이 안전합니다.

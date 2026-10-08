@@ -226,6 +226,13 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 141, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-01.jpg", year: "2026", groupKey: "mc-dg" },
   { id: 142, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-02.jpg", year: "2026", groupKey: "mc-dg" },
   { id: 143, title: "McDonald's-DG", category: "F&B", image: "/works/mc-dg-03.jpg", year: "2026", groupKey: "mc-dg" },
+  { id: 144, title: "LOTTERIA-SH", category: "F&B", image: "/works/lt-sh-01.jpg", year: "2026", groupKey: "lt-sh" },
+  { id: 145, title: "LOTTERIA-SH", category: "F&B", image: "/works/lt-sh-02.jpg", year: "2026", groupKey: "lt-sh" },
+  { id: 146, title: "LOTTERIA-SH", category: "F&B", image: "/works/lt-sh-03.jpg", year: "2026", groupKey: "lt-sh" },
+  { id: 147, title: "LOTTERIA-SH", category: "F&B", image: "/works/lt-sh-04.jpg", year: "2026", groupKey: "lt-sh" },
+  { id: 148, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-01.jpg", year: "2026", groupKey: "hp-ph" },
+  { id: 149, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-02.jpg", year: "2026", groupKey: "hp-ph" },
+  { id: 150, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-03.jpg", year: "2026", groupKey: "hp-ph" },
 ];
 
 const SERVICES = [

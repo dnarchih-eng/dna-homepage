@@ -233,6 +233,8 @@ const PROJECT_SOURCES: ProjectSource[] = [
   { id: 148, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-01.jpg", year: "2026", groupKey: "hp-ph" },
   { id: 149, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-02.jpg", year: "2026", groupKey: "hp-ph" },
   { id: 150, title: "Chuncheon Office", category: "Public", image: "/works/hp-ph-03.jpg", year: "2026", groupKey: "hp-ph" },
+  { id: 151, title: "KOLON", category: "Retail", image: "/works/kl-1.jpg", year: "2026", groupKey: "kl-dc" },
+  { id: 152, title: "KOLON", category: "Retail", image: "/works/kl-2.jpg", year: "2026", groupKey: "kl-dc" },
 ];
 
 const SERVICES = [

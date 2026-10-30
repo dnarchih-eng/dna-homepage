@@ -1770,27 +1770,6 @@ const ContactSection = () => {
                       {copiedContactField === 'email' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                     </button>
                   </div>
-                  <div className="mt-5 max-w-lg space-y-5 text-sm leading-7 text-brand-dark/70">
-                    <details id="privacy-policy" className="scroll-mt-28">
-                      <summary className="cursor-pointer font-medium text-brand-dark transition-colors hover:text-brand-accent">개인정보처리방침 · 이메일 문의</summary>
-                      <p className="mt-1">
-                        이메일로 보내주신 성명, 이메일 주소, 연락처 및 문의 내용은 문의 확인과 답변을 위해 처리하며,
-                        목적 달성 후 지체 없이 파기합니다. 다만, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관합니다.
-                        문의 시 주민등록번호 등 불필요한 개인정보나 민감정보는 보내지 말아 주세요.
-                      </p>
-                      <p className="mt-2">
-                        개인정보의 열람, 정정·삭제, 처리정지에 관한 요청은 위 이메일로 접수하실 수 있습니다.
-                      </p>
-                    </details>
-                    <details id="email-collection-policy" className="scroll-mt-28">
-                      <summary className="cursor-pointer font-medium text-brand-dark transition-colors hover:text-brand-accent">이메일주소 무단수집거부</summary>
-                      <p className="mt-1">
-                        본 홈페이지에 게시된 이메일 주소를 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여
-                        사전 동의 없이 수집하는 행위를 거부합니다. 무단으로 수집한 이메일 주소의 판매·유통 및
-                        영리 목적의 광고성 정보 전송에 이용하는 행위도 거부합니다.
-                      </p>
-                    </details>
-                  </div>
                 </div>
               </div>
             </div>
@@ -1851,6 +1830,22 @@ const ContactSection = () => {
 
 
 const Footer = () => {
+  const [activePolicy, setActivePolicy] = useState<'privacy' | 'email' | null>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!activePolicy || !dialog) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    dialog.showModal();
+    return () => {
+      dialog.close();
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [activePolicy]);
+
   return (
     <footer className="py-20 bg-brand-dark text-brand-light border-t border-brand-light/5">
       <div className="max-w-7xl mx-auto px-6">
@@ -1862,19 +1857,14 @@ const Footer = () => {
             </span>
           </div>
 
-          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[10px] uppercase tracking-[0.2em] opacity-60">
-            <a href="#privacy-policy" onClick={() => document.getElementById('privacy-policy')?.setAttribute('open', '')} className="hover:text-brand-accent transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#email-collection-policy" onClick={() => document.getElementById('email-collection-policy')?.setAttribute('open', '')} className="hover:text-brand-accent transition-colors">
-              이메일주소 무단수집거부
-            </a>
-            <a href="#" className="hover:text-brand-accent transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="hover:text-brand-accent transition-colors">
-              Careers
-            </a>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 text-sm text-brand-light/70">
+            <button type="button" onClick={() => setActivePolicy('privacy')} className="font-medium transition-colors hover:text-brand-light" aria-haspopup="dialog">
+              개인정보처리방침
+            </button>
+            <span aria-hidden="true" className="text-brand-light/25">|</span>
+            <button type="button" onClick={() => setActivePolicy('email')} className="transition-colors hover:text-brand-light" aria-haspopup="dialog">
+              이메일무단수집거부
+            </button>
           </div>
 
           <div className="text-[10px] uppercase tracking-[0.2em] opacity-40">
@@ -1882,6 +1872,44 @@ const Footer = () => {
           </div>
         </div>
       </div>
+      <dialog
+        ref={dialogRef}
+        onCancel={() => setActivePolicy(null)}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) setActivePolicy(null);
+        }}
+        aria-labelledby="policy-dialog-title"
+        className="fixed inset-0 m-auto max-h-[85dvh] w-[calc(100%-2rem)] max-w-xl overflow-y-auto rounded-lg bg-white p-0 text-brand-dark shadow-xl backdrop:bg-black/50"
+      >
+        <div className="relative p-6 sm:p-8" onClick={(event) => event.stopPropagation()}>
+          <div className="flex items-center justify-between gap-4 border-b border-brand-dark/10 pb-5">
+            <h2 id="policy-dialog-title" className="text-lg font-semibold">
+              {activePolicy === 'privacy' ? '개인정보처리방침' : '이메일무단수집거부'}
+            </h2>
+            <button type="button" autoFocus onClick={() => setActivePolicy(null)} aria-label="닫기" className="rounded p-2 text-brand-dark/60 hover:bg-brand-light hover:text-brand-dark">
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+          <div className="space-y-4 py-6 text-sm leading-7 text-brand-dark/75">
+            {activePolicy === 'privacy' ? (
+              <>
+                <p className="font-medium text-brand-dark">이메일 문의에 관한 개인정보 처리 안내</p>
+                <p>이메일로 보내주신 성명, 이메일 주소, 연락처 및 문의 내용은 문의 확인과 답변을 위해 처리하며, 목적 달성 후 지체 없이 파기합니다. 다만, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관합니다.</p>
+                <p>문의 시 주민등록번호 등 불필요한 개인정보나 민감정보는 보내지 말아 주세요.</p>
+                <p>개인정보의 열람, 정정·삭제, 처리정지에 관한 요청은 dnarchi@hanmail.net으로 접수하실 수 있습니다.</p>
+              </>
+            ) : (
+              <>
+                <p>본 홈페이지에 게시된 이메일 주소를 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 사전 동의 없이 수집하는 행위를 거부합니다.</p>
+                <p>무단으로 수집한 이메일 주소의 판매·유통 및 영리 목적의 광고성 정보 전송에 이용하는 행위도 거부합니다.</p>
+              </>
+            )}
+          </div>
+          <div className="flex justify-center border-t border-brand-dark/10 pt-5">
+            <button type="button" onClick={() => setActivePolicy(null)} className="rounded border border-brand-dark/20 px-8 py-2 text-sm transition-colors hover:bg-brand-light">닫기</button>
+          </div>
+        </div>
+      </dialog>
     </footer>
   );
 };

@@ -1770,6 +1770,27 @@ const ContactSection = () => {
                       {copiedContactField === 'email' ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                     </button>
                   </div>
+                  <div className="mt-5 max-w-lg space-y-5 text-sm leading-7 text-brand-dark/70">
+                    <section id="privacy-policy" className="scroll-mt-28" aria-labelledby="privacy-policy-title">
+                      <h5 id="privacy-policy-title" className="font-medium text-brand-dark">개인정보처리방침 · 이메일 문의</h5>
+                      <p className="mt-1">
+                        이메일로 보내주신 성명, 이메일 주소, 연락처 및 문의 내용은 문의 확인과 답변을 위해 처리하며,
+                        목적 달성 후 지체 없이 파기합니다. 다만, 관계 법령에 따라 보관이 필요한 경우 해당 기간 동안 보관합니다.
+                        문의 시 주민등록번호 등 불필요한 개인정보나 민감정보는 보내지 말아 주세요.
+                      </p>
+                      <p className="mt-2">
+                        개인정보의 열람, 정정·삭제, 처리정지에 관한 요청은 위 이메일로 접수하실 수 있습니다.
+                      </p>
+                    </section>
+                    <section id="email-collection-policy" className="scroll-mt-28" aria-labelledby="email-collection-policy-title">
+                      <h5 id="email-collection-policy-title" className="font-medium text-brand-dark">이메일주소 무단수집거부</h5>
+                      <p className="mt-1">
+                        본 홈페이지에 게시된 이메일 주소를 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여
+                        사전 동의 없이 수집하는 행위를 거부합니다. 무단으로 수집한 이메일 주소의 판매·유통 및
+                        영리 목적의 광고성 정보 전송에 이용하는 행위도 거부합니다.
+                      </p>
+                    </section>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1841,9 +1862,12 @@ const Footer = () => {
             </span>
           </div>
 
-          <div className="flex space-x-12 text-[10px] uppercase tracking-[0.2em] opacity-60">
-            <a href="#" className="hover:text-brand-accent transition-colors">
+          <div className="flex flex-wrap justify-center gap-x-8 gap-y-4 text-[10px] uppercase tracking-[0.2em] opacity-60">
+            <a href="#privacy-policy" className="hover:text-brand-accent transition-colors">
               Privacy Policy
+            </a>
+            <a href="#email-collection-policy" className="hover:text-brand-accent transition-colors">
+              이메일주소 무단수집거부
             </a>
             <a href="#" className="hover:text-brand-accent transition-colors">
               Terms of Service
